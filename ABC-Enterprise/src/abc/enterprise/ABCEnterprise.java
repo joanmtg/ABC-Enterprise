@@ -14,6 +14,9 @@ public class ABCEnterprise {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        int var = 5;
+        
         // TODO code application logic here
     }
     
