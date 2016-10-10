@@ -13,8 +13,9 @@ public class ConexionBD {
 
     ConexionBD() {
         url = "jdbc:postgresql://localhost:5432/abcbd";
-        usuario = "joanmatg";
-        password = "joanmatg";
+        usuario = "wayne";        
+        password = "arkham";
+        
     }
 
     public Connection conectar() {

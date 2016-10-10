@@ -2,8 +2,10 @@
 package Proyecto;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -54,4 +56,38 @@ public class ManejadoraBD {
         return -1;
     }
     
+        public ArrayList<Sede> obtenerInfoSedes(){
+        
+        ArrayList<Sede> sedes = new ArrayList<>();
+        String sql_select;
+        sql_select = "SELECT cod_sede, nombre FROM Sedes";
+        
+         try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            //
+            while(tabla.next()){
+               
+                String codigoSede = tabla.getString(1);
+                String nombreSede = tabla.getString(2);
+                
+                Sede newSede = new Sede();
+                newSede.setIdSede(codigoSede);
+                newSede.setNombre(nombreSede);
+                
+                sedes.add(newSede);
+            }
+             conexion.close();
+             System.out.println("Conexion cerrada");
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+         
+         return sedes;
+    }
+
 }
+    
+
