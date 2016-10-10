@@ -1,5 +1,6 @@
 package Proyecto;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /*
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class ventanaGerente extends javax.swing.JFrame {
     static ventanaGerente objVentanaGerente = new ventanaGerente();
     ManejadoraBD baseDatos = new ManejadoraBD();
+    ArrayList<Sede> sedesBD = new ArrayList<>();
     /**
      * Creates new form ventanaGerente
      */
@@ -65,12 +67,12 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfNombreRegistroU = new javax.swing.JTextField();
         tfIDRegistroU = new javax.swing.JTextField();
         tfEdadRegistroU = new javax.swing.JTextField();
-        comboTipoRegistroU = new javax.swing.JComboBox<>();
-        comboEstadoRegistroU = new javax.swing.JComboBox<>();
+        comboTipoRegistroU = new javax.swing.JComboBox<String>();
+        comboEstadoRegistroU = new javax.swing.JComboBox<String>();
         tfTelRegistroU = new javax.swing.JTextField();
         tfDirecRegistroU = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        comboSedeRegistroU = new javax.swing.JComboBox<>();
+        comboSedeRegistroU = new javax.swing.JComboBox<String>();
         botonGuardarRegistroGerente = new javax.swing.JButton();
         botonCancelarRegistroGerente = new javax.swing.JButton();
         tfEMailRegistroU = new javax.swing.JTextField();
@@ -278,14 +280,14 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Dirección");
 
-        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
+        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
 
-        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
+        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Sede *");
 
-        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona sede", "Sede A", "Sede B", "Sede C", "67891" }));
+        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona sede" }));
 
         botonGuardarRegistroGerente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
         botonGuardarRegistroGerente.setText("Guardar");
@@ -572,6 +574,16 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonRegistrarUsuarioGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarUsuarioGerenteActionPerformed
         // TODO add your handling code here:
         this.panelInfoGerente.setVisible(true);
+        
+        // Cargando sedes en el JComboBox
+        
+        sedesBD = baseDatos.obtenerInfoSedes();
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboSedeRegistroU.addItem(nombreSede);
+            }
     }//GEN-LAST:event_botonRegistrarUsuarioGerenteActionPerformed
 
     private void botonSalirGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirGerenteActionPerformed
@@ -600,7 +612,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         String direccion = tfDirecRegistroU.getText();
         String tipoUsuario = (String)comboTipoRegistroU.getSelectedItem();
         String estado = (String)comboEstadoRegistroU.getSelectedItem();
-        String sede = "00001";  //Por ahora le puse esta por defecto, toca ponerle que traiga las sedes existentes de la BD
+        String sede = (String)comboSedeRegistroU.getSelectedItem();
         String password = id + "-" + edad;
         
         if((nombre.equals("")) || (id.equals("")) || (edad.equals("")) || (email.equals("")) || (telefono.equals(""))||(direccion.equals(""))||
@@ -616,6 +628,16 @@ public class ventanaGerente extends javax.swing.JFrame {
             
             if (estado.equals("Activo")){
                 state = 1;
+            }
+            
+            //Obteniendo el código de la sede a partir del nombre
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                if(sedesBD.get(i).getNombre().equals(sede))
+                {
+                    sede = sedesBD.get(i).getIdSede();
+                }
             }
                         
             //Se crea un objeto empleado

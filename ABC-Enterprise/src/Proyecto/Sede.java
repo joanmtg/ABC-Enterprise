@@ -14,7 +14,32 @@ public class Sede {
     private String nombre;
     private String idSede;
     private String direccion;
-    private String telefono;
+
+    public void setIdSede(String idSede) {
+        this.idSede = idSede;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    
+    
+    public String getIdSede() {
+        return idSede;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
     
     
     

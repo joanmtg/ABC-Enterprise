@@ -1,10 +1,13 @@
+package Proyecto;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proyecto;
 
+
+import Proyecto.Venta;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +18,7 @@ public class DatosPrograma {
     
     private ArrayList<Auto> autos;
     private ArrayList<Cliente> clientes;
-    //private ArrayList<Gerente> gerentes;
+    private ArrayList<Empleado> empleados;
     //private ArrayList<JefeDeTaller> jefes;
     private ArrayList<OrdenDeTrabajo> ordenes;
     private ArrayList<Pieza> piezas;
