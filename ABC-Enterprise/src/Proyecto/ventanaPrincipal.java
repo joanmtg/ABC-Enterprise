@@ -180,7 +180,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void botonIngresarVentanaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarVentanaPActionPerformed
         // TODO add your handling code here:
         String usernameProg="",passProg="";
-        ArrayList<String> informacion = new ArrayList<>(); //Aquí se almacenará la información del usuario que se trae desde la base de datos.
+        int existeUsuario; //Aquí se almacenará la cantidad de usuarios con un codigo dado (Max 1)
         //Se obtiene lo que el usuario digitó
         usernameProg = tfUsuarioVentanaP.getText();
         passProg = tfContraseñaVentanaP.getText();
@@ -193,23 +193,24 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
         //De lo contrario, se llama al método 'login' de la clase ManejadoraBD
         else{
-            informacion = baseDatos.login(usernameProg, passProg);
-            if(informacion.size()!=0){
+            existeUsuario = Integer.parseInt( baseDatos.buscarLogin(usernameProg) );
+            if(existeUsuario!=0){
                 ventanaGerente objGerente = new ventanaGerente();
                 objGerente.setVisible(true);
+                ArrayList<String> informacion = new ArrayList<>();
+                informacion = baseDatos.obtenerInfoDelLogin(usernameProg);
                 
                 objGerente.labelNombreGerente.setText("Nombre:  "+informacion.get(1));
                 objGerente.labelIdGerente.setText("Identifiación:   "+informacion.get(0));
                 objGerente.labelCargoGerente.setText("Cargo:    "+informacion.get(2));
                 
-                objGerente.panelAgregarUsuario.setVisible(false);
                 this.setVisible(false);
             }
             //Si se devuelve un array vacío es porque no hay match entre la información dada y lo que está en la BD
             else{
                 labelIncorrectoVentanaP.setText("Ingrese un usuario y contraseña.");
-            labelIncorrectoVentanaP.setVisible(true);
-            separatorVentanaP.setVisible(true);
+                labelIncorrectoVentanaP.setVisible(true);
+                separatorVentanaP.setVisible(true);
             }
         }
         

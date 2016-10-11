@@ -131,11 +131,11 @@ public class ManejadoraBD {
          return sedes;
     }
     
-    //Busca un username y un password en la tabla Gerente
-    public ArrayList<String> buscarLoginEnGerente(){
-        String sql_select;
-        ArrayList<String> usernames = new ArrayList<>();
-        sql_select = "SELECT cod_gerente, password, nombre FROM Gerentes";
+    
+    //Busca un username en la tabla empleados
+    public String buscarLogin(String username){
+        String sql_select, existe="";
+        sql_select = "SELECT count(*) FROM empleados where cod_empleado = '"+username+"'";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -143,13 +143,7 @@ public class ManejadoraBD {
             //
             while(tabla.next()){
                 
-                String usuario = tabla.getString(1);
-                String pass = tabla.getString(2);
-                String nombre = tabla.getString(3);
-                usernames.add(usuario);
-                usernames.add(pass);
-                usernames.add(nombre);
-                usernames.add("Gerente");
+                existe = tabla.getString(1);
                 
             }
              conexion.close();
@@ -158,113 +152,41 @@ public class ManejadoraBD {
          }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println(e); }
-        return usernames;
-    }
-    
-    //Busca un username y un password en la tabla Vendedor
-    public ArrayList<String> buscarLoginEnVendedor(){
-        String sql_select;
-        ArrayList<String> usernames = new ArrayList<>();
-        sql_select = "SELECT cod_vendedor, password, nombre FROM Vendedores";
-        try{
-            Connection conexion= newConnection.conectar();
-            Statement sentencia = conexion.createStatement();
-            ResultSet tabla = sentencia.executeQuery(sql_select);
-            //
-            while(tabla.next()){
-                
-                String usuario = tabla.getString(1);
-                String pass = tabla.getString(2);
-                String nombre = tabla.getString(3);
-                usernames.add(usuario);
-                usernames.add(pass);
-                usernames.add(nombre);
-                usernames.add("Vendedor");
-                
-            }
-             conexion.close();
-             System.out.println("Conexion cerrada");
-
-         }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println(e); }
-        return usernames;
-    }
-    
-    //Busca un username y un password en la tabla Jefes_taller
-    public ArrayList<String> buscarLoginEnJefeTaller(){
-        String sql_select;
-        ArrayList<String> usernames = new ArrayList<>();
-        sql_select = "SELECT cod_jefet, password, nombre FROM Jefes_taller";
-        try{
-            Connection conexion= newConnection.conectar();
-            Statement sentencia = conexion.createStatement();
-            ResultSet tabla = sentencia.executeQuery(sql_select);
-            //
-            while(tabla.next()){
-                
-                String usuario = tabla.getString(1);
-                String pass = tabla.getString(2);
-                String nombre = tabla.getString(3);
-                usernames.add(usuario);
-                usernames.add(pass);
-                usernames.add(nombre);
-                usernames.add("Jefe de taller");
-                
-            }
-             conexion.close();
-             System.out.println("Conexion cerrada");
-
-         }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println(e); }
-        return usernames;
+        return existe;
     }
     
     
-    //Se encarga de toda la lóogica del log in.
-    public ArrayList<String> login(String user, String pass){
+    //Se encarga de obtener la información del usuario que se acaba de loggear
+    public ArrayList<String> obtenerInfoDelLogin(String user){
+        
         ArrayList<String> informacion = new ArrayList<>();
-        ArrayList<String> gerentes = new ArrayList<>();
-        ArrayList<String> vendedores = new ArrayList<>();
-        ArrayList<String> jefes = new ArrayList<>();
         
-        gerentes = buscarLoginEnGerente();
-        vendedores = buscarLoginEnVendedor();
-        jefes = buscarLoginEnJefeTaller();
+        //Se busca la informacion en la tabla empleados
         
-        //Se busca en cada una de las tablas el user.
-        
-        //En gerentes:
-        for (int i = 0; i < gerentes.size(); i=i+4) {
-            if(gerentes.get(i).equals(user) && gerentes.get(i+1).equals(pass)){
-                informacion.add(gerentes.get(i)); //ID
-                informacion.add(gerentes.get(i+2)); //Nombre
-                informacion.add(gerentes.get(i+3)); //Cargo
-                return informacion;
+        String sql_select, codigo="", nombre="", cargo ="";
+        sql_select = "SELECT nombre,tipo FROM empleados where cod_empleado = '"+user+"'";
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            //
+            while(tabla.next()){
+                codigo = user;
+                nombre = tabla.getString(1);
+                cargo = tabla.getString(2);
+                
+                //Se agrega al array que se retornará
+                informacion.add(codigo); //indice 0
+                informacion.add(nombre); //indice 1
+                informacion.add(cargo); //indice 2
+                
             }
-        }
-        
-        //En vendedores:
-        for (int i = 0; i < vendedores.size(); i=i+4) {
-            if(vendedores.get(i).equals(user) && vendedores.get(i+1).equals(pass)){
-                informacion.add(vendedores.get(i)); //ID
-                informacion.add(vendedores.get(i+2)); //Nombre
-                informacion.add(vendedores.get(i+3)); //Cargo
-                return informacion;
-            }
-        }
-        
-        //En jefes_taller:
-        for (int i = 0; i < jefes.size(); i=i+4) {
-            if(jefes.get(i).equals(user) && jefes.get(i+1).equals(pass)){
-                informacion.add(jefes.get(i)); //ID
-                informacion.add(jefes.get(i+2)); //Nombre
-                informacion.add(jefes.get(i+3)); //Cargo
-                return informacion;
-            }
-        }
-        
+             conexion.close();
+             System.out.println("Conexion cerrada");
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
         
         return informacion;
     }
