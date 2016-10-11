@@ -1,5 +1,6 @@
 package Proyecto;
-
+import java.util.*;
+import javax.swing.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,9 +13,7 @@ package Proyecto;
  */
 public class ventanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ventanaPrincipal
-     */
+    ManejadoraBD baseDatos = new ManejadoraBD();
     public ventanaPrincipal() {
         super("Welcome to ABC Enterprises");
         
@@ -180,17 +179,40 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void botonIngresarVentanaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarVentanaPActionPerformed
         // TODO add your handling code here:
-        if(tfUsuarioVentanaP.getText().equals("") || tfContraseñaVentanaP.getPassword().length==0){
+        String usernameProg="",passProg="";
+        ArrayList<String> informacion = new ArrayList<>(); //Aquí se almacenará la información del usuario que se trae desde la base de datos.
+        //Se obtiene lo que el usuario digitó
+        usernameProg = tfUsuarioVentanaP.getText();
+        passProg = tfContraseñaVentanaP.getText();
+        
+        //Primero se verifica que no haya un campo vacío para no tener que hacer la comparación con todos los elementos en la base de datos (Se ahorra tiempo de ejecución)
+        if(tfUsuarioVentanaP.getText().equals("") || tfContraseñaVentanaP.getText().equals("")){
             labelIncorrectoVentanaP.setText("Ingrese un usuario y contraseña.");
             labelIncorrectoVentanaP.setVisible(true);
             separatorVentanaP.setVisible(true);
         }
-        else if(tfUsuarioVentanaP.getText().equals("admin") || tfContraseñaVentanaP.getPassword().equals("admin")){
-            ventanaGerente objGerente = new ventanaGerente();
-            objGerente.setVisible(true);
-            objGerente.panelInfoGerente.setVisible(false);
-            this.setVisible(false);
+        //De lo contrario, se llama al método 'login' de la clase ManejadoraBD
+        else{
+            informacion = baseDatos.login(usernameProg, passProg);
+            if(informacion.size()!=0){
+                ventanaGerente objGerente = new ventanaGerente();
+                objGerente.setVisible(true);
+                
+                objGerente.labelNombreGerente.setText("Nombre:  "+informacion.get(1));
+                objGerente.labelIdGerente.setText("Identifiación:   "+informacion.get(0));
+                objGerente.labelCargoGerente.setText("Cargo:    "+informacion.get(2));
+                
+                objGerente.panelAgregarUsuario.setVisible(false);
+                this.setVisible(false);
+            }
+            //Si se devuelve un array vacío es porque no hay match entre la información dada y lo que está en la BD
+            else{
+                labelIncorrectoVentanaP.setText("Ingrese un usuario y contraseña.");
+            labelIncorrectoVentanaP.setVisible(true);
+            separatorVentanaP.setVisible(true);
+            }
         }
+        
     }//GEN-LAST:event_botonIngresarVentanaPActionPerformed
 
     /**
