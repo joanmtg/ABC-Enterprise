@@ -92,4 +92,4 @@ CREATE TABLE PiezasOrden (
 
 INSERT INTO sedes(cod_sede, nombre, direccion) VALUES ('00001', 'Sede de Cali', 'Univalle');
 
-INSERT INTO Empleados(cod_empleado, nombre, password, edad, estado, telefono, email, titulo, direccion, cod_sede) VALUES ('00001', 'Linus Torvalds', '00001-30', '30', '1', '3122914869', 'linus@likeaboss.com', 'Doctor', 'Ciudad Jardin', 'Gerente','00001');
+INSERT INTO Empleados(cod_empleado, nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, cod_sede) VALUES ('00001', 'Linus Torvalds', '00001-30', '30', '1', '3122914869', 'linus@likeaboss.com', 'Doctor', 'Ciudad Jardin', 'Gerente','00001');
