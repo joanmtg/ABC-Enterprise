@@ -80,7 +80,7 @@ public class ManejadoraBD {
         
         if(usuario.equals("Gerente"))
         {
-             sql_select = "SELECT cod_sede, nombre FROM Sedes WHERE cod_sede IN (SELECT cod_sede FROM Sedes EXCEPT SELECT cod_sede FROM Gerentes)";
+             sql_select = "SELECT cod_sede, nombre FROM Sedes WHERE cod_sede IN (SELECT cod_sede FROM Sedes EXCEPT SELECT cod_sede FROM Empleados WHERE tipo='Gerente')";
         }
         else
         {
