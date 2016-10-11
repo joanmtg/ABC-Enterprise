@@ -18,32 +18,14 @@ public class ManejadoraBD {
     public int guardarUsuario(Empleado newEmpleado){
         
         String sql_guardar;
-        
-        String tipo = newEmpleado.getTipo();
-        String tabla = "";
-        String codVariable = "";      
-        
-        switch (tipo) {
-            case "Gerente":
-                tabla = "gerentes";
-                codVariable = "cod_gerente";
-                break;
-            case "Vendedor":
-                tabla = "vendedores";
-                codVariable = "cod_vendedor";
-                break;
-            default:
-                tabla = "jefes_taller";
-                codVariable = "cod_jefeT";
-                break;
-        }
-                        
-        sql_guardar = "INSERT INTO " + tabla + "(" + codVariable + ",nombre,password,edad,estado,telefono,email,titulo,direccion,cod_sede)"
+                 
+        sql_guardar = "INSERT INTO Empleados(cod_empleado,nombre,password,edad,estado,telefono,email,titulo,direccion,tipo,cod_sede)"
                     + " VALUES ('" + newEmpleado.getCodigo() + "', '" + newEmpleado.getNombre() +  "',"
                     +           " '" + newEmpleado.getPassword()+ "', '" + newEmpleado.getEdad()+"',"
                     +           " '" + newEmpleado.getEstado()+"','" + newEmpleado.getTelefono()+ "',"
                     +           " '" + newEmpleado.getEmail() +"','" + newEmpleado.getTitulo() + "',"
-                    +           " '" + newEmpleado.getDireccion()+"','" + newEmpleado.getCodigoSede() + "')";
+                    +           " '" + newEmpleado.getDireccion()+"','" + newEmpleado.getTipo() + "',"
+                    +           "'" + newEmpleado.getCodigoSede() + "')";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -163,8 +145,8 @@ public class ManejadoraBD {
         
         //Se busca la informacion en la tabla empleados
         
-        String sql_select, codigo="", nombre="", cargo ="";
-        sql_select = "SELECT nombre,tipo FROM empleados where cod_empleado = '"+user+"'";
+        String sql_select, codigo="", nombre="", cargo ="", password="";
+        sql_select = "SELECT nombre,tipo,password FROM empleados where cod_empleado = '"+user+"'";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -174,11 +156,13 @@ public class ManejadoraBD {
                 codigo = user;
                 nombre = tabla.getString(1);
                 cargo = tabla.getString(2);
+                password = tabla.getString(3);
                 
                 //Se agrega al array que se retornará
                 informacion.add(codigo); //indice 0
                 informacion.add(nombre); //indice 1
                 informacion.add(cargo); //indice 2
+                informacion.add(password); //indice 3
                 
             }
              conexion.close();

@@ -12,9 +12,9 @@ public class ConexionBD {
     Connection conexion;
 
     ConexionBD() {
-        url = "jdbc:postgresql://pgsql:5432/fabioacd";
-        usuario = "fabioacd";
-        password = "fabioacd";
+        url = "jdbc:postgresql://localhost:5432/abcbd";
+        usuario = "wayne";
+        password = "arkham";
     }
 
     public Connection conectar() {

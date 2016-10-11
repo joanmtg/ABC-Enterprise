@@ -1,4 +1,5 @@
 package Proyecto;
+
 import java.util.*;
 import javax.swing.*;
 /*
@@ -14,9 +15,10 @@ import javax.swing.*;
 public class ventanaPrincipal extends javax.swing.JFrame {
 
     ManejadoraBD baseDatos = new ManejadoraBD();
+
     public ventanaPrincipal() {
         super("Welcome to ABC Enterprises");
-        
+
         initComponents();
     }
 
@@ -179,41 +181,50 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void botonIngresarVentanaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarVentanaPActionPerformed
         // TODO add your handling code here:
-        String usernameProg="",passProg="";
+        String usernameProg = "", passProg = "";
         int existeUsuario; //Aquí se almacenará la cantidad de usuarios con un codigo dado (Max 1)
         //Se obtiene lo que el usuario digitó
         usernameProg = tfUsuarioVentanaP.getText();
         passProg = tfContraseñaVentanaP.getText();
-        
+
         //Primero se verifica que no haya un campo vacío para no tener que hacer la comparación con todos los elementos en la base de datos (Se ahorra tiempo de ejecución)
-        if(tfUsuarioVentanaP.getText().equals("") || tfContraseñaVentanaP.getText().equals("")){
+        if (tfUsuarioVentanaP.getText().equals("") || tfContraseñaVentanaP.getText().equals("")) {
             labelIncorrectoVentanaP.setText("Ingrese un usuario y contraseña.");
             labelIncorrectoVentanaP.setVisible(true);
             separatorVentanaP.setVisible(true);
-        }
-        //De lo contrario, se llama al método 'login' de la clase ManejadoraBD
-        else{
-            existeUsuario = Integer.parseInt( baseDatos.buscarLogin(usernameProg) );
-            if(existeUsuario!=0){
-                ventanaGerente objGerente = new ventanaGerente();
-                objGerente.setVisible(true);
+        } //De lo contrario, se llama al método 'login' de la clase ManejadoraBD
+        else {
+            existeUsuario = Integer.parseInt(baseDatos.buscarLogin(usernameProg));
+            if (existeUsuario != 0) {
                 ArrayList<String> informacion = new ArrayList<>();
                 informacion = baseDatos.obtenerInfoDelLogin(usernameProg);
-                
-                objGerente.labelNombreGerente.setText("Nombre:  "+informacion.get(1));
-                objGerente.labelIdGerente.setText("Identifiación:   "+informacion.get(0));
-                objGerente.labelCargoGerente.setText("Cargo:    "+informacion.get(2));
-                
-                this.setVisible(false);
-            }
-            //Si se devuelve un array vacío es porque no hay match entre la información dada y lo que está en la BD
-            else{
-                labelIncorrectoVentanaP.setText("Ingrese un usuario y contraseña.");
+                String passUsuario = informacion.get(3);
+
+                if(passProg.equals(passUsuario))
+                {
+                    ventanaGerente objGerente = new ventanaGerente();
+                    objGerente.setVisible(true);
+
+                    objGerente.labelNombreGerente.setText("Nombre:  " + informacion.get(1));
+                    objGerente.labelIdGerente.setText("Identifiación:   " + informacion.get(0));
+                    objGerente.labelCargoGerente.setText("Cargo:    " + informacion.get(2));
+
+                    this.setVisible(false);
+                }
+                else
+                {
+                    labelIncorrectoVentanaP.setText("Contraseña incorrecta.");
+                    labelIncorrectoVentanaP.setVisible(true);
+                    separatorVentanaP.setVisible(true);
+                }
+            } //Si se devuelve un array vacío es porque no hay match entre la información dada y lo que está en la BD
+            else {
+                labelIncorrectoVentanaP.setText("El usuario ingresado no está registrado.");
                 labelIncorrectoVentanaP.setVisible(true);
                 separatorVentanaP.setVisible(true);
             }
         }
-        
+
     }//GEN-LAST:event_botonIngresarVentanaPActionPerformed
 
     /**
@@ -232,9 +243,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     break;
                 }
                 /*if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }*/
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+                 }*/
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ventanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -254,7 +265,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 objVentanaPrincipal.setVisible(true);
                 objVentanaPrincipal.separatorVentanaP.setVisible(false);
                 objVentanaPrincipal.labelIncorrectoVentanaP.setVisible(false);
-                
+
             }
         });
     }
