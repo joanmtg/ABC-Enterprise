@@ -13,8 +13,8 @@ public class ConexionBD {
 
     ConexionBD() {
         url = "jdbc:postgresql://localhost:5432/abcbd";
-        usuario = "joanmatg";
-        password = "joanmatg";
+        usuario = "wayne";
+        password = "arkham";
     }
 
     public Connection conectar() {
@@ -34,6 +34,7 @@ public class ConexionBD {
             //Crear objeto Statement para realizar queries a la base de datos
         } catch (Exception e) {
             System.out.println("No fue posible accerder a la Base de Datos.");
+            e.printStackTrace();
             return null;
         }
 
