@@ -805,7 +805,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonRegistrarSedeGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSedeGerenteActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(1);//el indice 1 es el indice del panel "agregarSede"
-        String cod = baseDatos.obtenerMaxCodigoSede();
+        String cod = baseDatos.obtenerMaxCodigoSede().trim();
         int codigo = Integer.parseInt(cod);
         codigo++;
         tfCodigoRegistroS.setText(codigo+"");
@@ -843,7 +843,7 @@ public class ventanaGerente extends javax.swing.JFrame {
 
     private void comboTipoRegistroUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoRegistroUActionPerformed
         // TODO add your handling code here:
-                 String tipoUsuario = (String)comboTipoRegistroU.getSelectedItem();
+        String tipoUsuario = (String)comboTipoRegistroU.getSelectedItem();
         
         if(tipoUsuario.equals("Gerente"))
         {
