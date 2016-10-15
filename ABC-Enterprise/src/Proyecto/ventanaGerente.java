@@ -728,7 +728,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarRegistroGerenteActionPerformed
 
     private void botonGuardarRegistroGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroGerenteActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
         String id = tfIDRegistroU.getText();
         String nombre = tfNombreRegistroU.getText();
         String edad = tfEdadRegistroU.getText();
@@ -740,6 +740,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         String estado = (String)comboEstadoRegistroU.getSelectedItem();
         String sede = (String)comboSedeRegistroU.getSelectedItem();
         String password = id + "-" + edad;
+        int codSede = 0;
         
         if((nombre.equals("")) || (id.equals("")) || (edad.equals("")) || (email.equals("")) || (telefono.equals(""))||(direccion.equals(""))||
            (titulo.equals("")) || (tipoUsuario.equals("Selecciona tipo"))|| (estado.equals("Selecciona estado"))||(sede.equals("Selecciona sede")))
@@ -762,13 +763,13 @@ public class ventanaGerente extends javax.swing.JFrame {
             {
                 if(sedesBD.get(i).getNombre().equals(sede))
                 {
-                    sede = sedesBD.get(i).getIdSede();
+                    codSede = sedesBD.get(i).getIdSede();
                 }
             }
                         
             //Se crea un objeto empleado
             
-            Empleado newEmpleado = new Empleado(id, nombre, password, edad, state, telefono, email, titulo, direccion, sede, tipoUsuario);
+            Empleado newEmpleado = new Empleado(id, nombre, password, edad, state, telefono, email, titulo, direccion, codSede, tipoUsuario);
             
             // Guardando información gerente en BD
             int verificacion = baseDatos.guardarUsuario(newEmpleado);
@@ -805,8 +806,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonRegistrarSedeGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSedeGerenteActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(1);//el indice 1 es el indice del panel "agregarSede"
-        String cod = baseDatos.obtenerMaxCodigoSede().trim();
-        int codigo = Integer.parseInt(cod);
+        int codigo = baseDatos.obtenerMaxCodigoSede();
         codigo++;
         tfCodigoRegistroS.setText(codigo+"");
     }//GEN-LAST:event_botonRegistrarSedeGerenteActionPerformed
@@ -815,15 +815,17 @@ public class ventanaGerente extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = tfNombreRegistroS.getText();
         String direccion = tfDireccionRegistroS.getText();
-        String codigo = tfCodigoRegistroS.getText();
+        
         if(nombre.equalsIgnoreCase("")||direccion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada para la sede","Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
             Sede newsede = new Sede();
             newsede.setNombre(nombre);
             newsede.setDireccion(direccion);
-            newsede.setIdSede(codigo);
-            int resultado = baseDatos.GuardarSede(newsede);
+            int resultado = baseDatos.guardarSede(newsede);
+            
+            System.out.println(resultado);
+            
             if(resultado!= -1){
                 JOptionPane.showMessageDialog(null, "La sede ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
                 tfDireccionRegistroS.setText("");

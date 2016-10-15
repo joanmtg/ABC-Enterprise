@@ -25,7 +25,7 @@ public class ManejadoraBD {
                     +           " '" + newEmpleado.getEstado()+"','" + newEmpleado.getTelefono()+ "',"
                     +           " '" + newEmpleado.getEmail() +"','" + newEmpleado.getTitulo() + "',"
                     +           " '" + newEmpleado.getDireccion()+"','" + newEmpleado.getTipo() + "',"
-                    +           "'" + newEmpleado.getCodigoSede() + "')";
+                    +           newEmpleado.getCodigoSede() + ")";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -39,8 +39,8 @@ public class ManejadoraBD {
     }
     
     
-    public int GuardarSede(Sede sede){
-        String sql = "INSERT INTO sedes(cod_sede, nombre, direccion) VALUES ('"+sede.getIdSede()+"','"+sede.getNombre()+
+    public int guardarSede(Sede sede){
+        String sql = "INSERT INTO sedes(nombre, direccion) VALUES ('" + sede.getNombre()+
                 "','"+sede.getDireccion()+"')";
         try{
             Connection conexion= newConnection.conectar();
@@ -53,16 +53,18 @@ public class ManejadoraBD {
         catch(Exception e){ System.out.println(e); }
         return -1;
     }
+  
+    
     //obtiene el codigo de la ultima sede registrada, para saber cual ponerle a la nueva sede a registrar
-    public String obtenerMaxCodigoSede(){
+    public int obtenerMaxCodigoSede(){
         String sql = "SELECT MAX(cod_sede) FROM Sedes";
-        String result = "";
+        int result = 0;
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
             ResultSet tabla = sentencia.executeQuery(sql);
             while(tabla.next()){
-                result = tabla.getString(1);
+                result = tabla.getInt(1);
             } 
             conexion.close();
             System.out.println("Conexion cerrada");
@@ -94,7 +96,7 @@ public class ManejadoraBD {
             //
             while(tabla.next()){
                
-                String codigoSede = tabla.getString(1);
+                int codigoSede = tabla.getInt(1);
                 String nombreSede = tabla.getString(2);
                 
                 Sede newSede = new Sede();
@@ -115,8 +117,9 @@ public class ManejadoraBD {
     
     
     //Busca un username en la tabla empleados
-    public String buscarLogin(String username){
-        String sql_select, existe="";
+    public int buscarLogin(String username){
+        String sql_select;
+        int existe = 0;
         sql_select = "SELECT count(*) FROM empleados where cod_empleado = '"+username+"'";
         try{
             Connection conexion= newConnection.conectar();
@@ -125,7 +128,7 @@ public class ManejadoraBD {
             //
             while(tabla.next()){
                 
-                existe = tabla.getString(1);
+                existe = tabla.getInt(1);
                 
             }
              conexion.close();
@@ -139,21 +142,21 @@ public class ManejadoraBD {
     
     
     //Se encarga de obtener la información del usuario que se acaba de loggear
-    public ArrayList<String> obtenerInfoDelLogin(String user){
+    public ArrayList<String> obtenerInfoDelLogin(String codUser){
         
         ArrayList<String> informacion = new ArrayList<>();
         
         //Se busca la informacion en la tabla empleados
         
         String sql_select, codigo="", nombre="", cargo ="", password="";
-        sql_select = "SELECT nombre,tipo,password FROM empleados where cod_empleado = '"+user+"'";
+        sql_select = "SELECT nombre,tipo,password FROM empleados where cod_empleado = '"+codUser+"'";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
             ResultSet tabla = sentencia.executeQuery(sql_select);
             //
             while(tabla.next()){
-                codigo = user;
+                codigo = codUser;
                 nombre = tabla.getString(1);
                 cargo = tabla.getString(2);
                 password = tabla.getString(3);

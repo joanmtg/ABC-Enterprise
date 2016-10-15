@@ -20,10 +20,10 @@ public class Empleado {
     private String email;
     private String titulo;
     private String direccion;
-    private String codigoSede;
+    private int codigoSede;
     private String tipo;
 
-    public Empleado(String codigo, String nombre, String password, String edad, int estado, String telefono, String email, String titulo, String direccion, String codigoSede, String tipo) {
+    public Empleado(String codigo, String nombre, String password, String edad, int estado, String telefono, String email, String titulo, String direccion, int codigoSede, String tipo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.password = password;
@@ -73,7 +73,7 @@ public class Empleado {
         this.direccion = direccion;
     }
 
-    public void setCodigoSede(String codigoSede) {
+    public void setCodigoSede(int codigoSede) {
         this.codigoSede = codigoSede;
     }
 
@@ -117,7 +117,7 @@ public class Empleado {
         return direccion;
     }
 
-    public String getCodigoSede() {
+    public int getCodigoSede() {
         return codigoSede;
     }
 

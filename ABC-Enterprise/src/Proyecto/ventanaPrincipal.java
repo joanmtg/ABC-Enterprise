@@ -194,7 +194,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             separatorVentanaP.setVisible(true);
         } //De lo contrario, se llama al método 'login' de la clase ManejadoraBD
         else {
-            existeUsuario = Integer.parseInt(baseDatos.buscarLogin(usernameProg));
+            existeUsuario = baseDatos.buscarLogin(usernameProg);
             if (existeUsuario != 0) {
                 ArrayList<String> informacion = new ArrayList<>();
                 informacion = baseDatos.obtenerInfoDelLogin(usernameProg);
@@ -217,7 +217,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                     labelIncorrectoVentanaP.setVisible(true);
                     separatorVentanaP.setVisible(true);
                 }
-            } //Si se devuelve un array vacío es porque no hay match entre la información dada y lo que está en la BD
+            } //Si se devuelve 0 es porque no hay match entre la información dada y lo que está en la BD
             else {
                 labelIncorrectoVentanaP.setText("El usuario ingresado no está registrado.");
                 labelIncorrectoVentanaP.setVisible(true);

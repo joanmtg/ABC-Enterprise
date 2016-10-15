@@ -12,10 +12,10 @@ package Proyecto;
 public class Sede {
     
     private String nombre;
-    private String idSede;
+    private int idSede;
     private String direccion;
         
-    public void setIdSede(String idSede) {
+    public void setIdSede(int idSede) {
         this.idSede = idSede;
     }
 
@@ -27,7 +27,7 @@ public class Sede {
         this.direccion = direccion;
     }
     
-    public String getIdSede() {
+    public int getIdSede() {
         return idSede;
     }
 
