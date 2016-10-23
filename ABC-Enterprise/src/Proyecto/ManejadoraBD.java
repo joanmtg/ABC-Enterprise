@@ -177,6 +177,39 @@ public class ManejadoraBD {
         
         return informacion;
     }
+    
+    
+    //Guarda una pieza en la BD
+    public int guardarPieza(Pieza pieza){
+        String sql = "INSERT INTO Piezas(cod_pieza, nombre, precio, cantidad) VALUES ('" + pieza.getIdPieza()+
+                "','"+pieza.getNombre()+"',"+ pieza.getPrecio() +","+ pieza.getCantidad()+");";
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            int numFilas = sentencia.executeUpdate(sql);
+            conexion.close();
+            return numFilas;
+        }
+        catch(SQLException e){ System.out.println(e); }
+        catch(Exception e){ System.out.println(e); }
+        return -1;
+    }
+    
+    //Guarda un auto en la BD
+    public int guardarAuto(Auto auto){
+        String sql = "INSERT INTO automoviles(cod_auto, marca, modelo, precio, color, cantidad, nombre) VALUES ('" + auto.getIdAuto()+
+                "','"+auto.getMarca()+"','"+ auto.getModelo()+"',"+ auto.getPrecio()+",'"+auto.getColor()+"',"+auto.getCantidad()+",'"+auto.getNombre()+"');";
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            int numFilas = sentencia.executeUpdate(sql);
+            conexion.close();
+            return numFilas;
+        }
+        catch(SQLException e){ System.out.println(e); }
+        catch(Exception e){ System.out.println(e); }
+        return -1;
+    }
 
 }
     

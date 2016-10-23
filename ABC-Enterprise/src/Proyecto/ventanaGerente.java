@@ -28,6 +28,8 @@ public class ventanaGerente extends javax.swing.JFrame {
         
         paneles.add(panelAgregarUsuario); //indice 0
         paneles.add(panelAgregarSede);//indice 1
+        paneles.add(panelAgregarPieza); //indice 2
+        paneles.add(panelAgregarVehiculo); //indice 3
         
         setPanelesInvisible(-1);//Se llama a este metodo con -1, para garantizar que ningun panel sea visible
     }
@@ -57,7 +59,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         botonRegistrarSedeGerente = new javax.swing.JButton();
         botonRegistrarVehicGerente = new javax.swing.JButton();
         botonRegistrarPiezaGerente = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelModificarGerente = new javax.swing.JPanel();
         botonModUsuarioGerente = new javax.swing.JButton();
         botonModSedeGerente = new javax.swing.JButton();
         botonModVehGerente = new javax.swing.JButton();
@@ -85,12 +87,12 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfNombreRegistroU = new javax.swing.JTextField();
         tfIDRegistroU = new javax.swing.JTextField();
         tfEdadRegistroU = new javax.swing.JTextField();
-        comboTipoRegistroU = new javax.swing.JComboBox<String>();
-        comboEstadoRegistroU = new javax.swing.JComboBox<String>();
+        comboTipoRegistroU = new javax.swing.JComboBox<>();
+        comboEstadoRegistroU = new javax.swing.JComboBox<>();
         tfTelRegistroU = new javax.swing.JTextField();
         tfDirecRegistroU = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        comboSedeRegistroU = new javax.swing.JComboBox<String>();
+        comboSedeRegistroU = new javax.swing.JComboBox<>();
         botonGuardarRegistroGerente = new javax.swing.JButton();
         botonCancelarRegistroGerente = new javax.swing.JButton();
         tfEMailRegistroU = new javax.swing.JTextField();
@@ -107,6 +109,36 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfDireccionRegistroS = new javax.swing.JTextField();
         botonGuardarRegistroS = new javax.swing.JButton();
         botonCancelarRegistroS = new javax.swing.JButton();
+        panelAgregarPieza = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        botonGuardarRegistroPieza = new javax.swing.JButton();
+        botonCancelarRegistroPieza = new javax.swing.JButton();
+        tfCodigoRegistroPieza = new javax.swing.JTextField();
+        tfNombreRegistroPieza = new javax.swing.JTextField();
+        tfPrecioRegistroPieza = new javax.swing.JTextField();
+        spCantidadRegistroPieza = new javax.swing.JSpinner();
+        panelAgregarVehiculo = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        tfcodigoRegistrarAuto = new javax.swing.JTextField();
+        tfMarcaRegistrarAuto = new javax.swing.JTextField();
+        tfModeloRegistrarAuto = new javax.swing.JTextField();
+        tfPrecioRegistrarAuto = new javax.swing.JTextField();
+        tfColorRegistrarAuto = new javax.swing.JTextField();
+        spCantidadRegistrarAuto = new javax.swing.JSpinner();
+        botonGuardarRegistroAuto = new javax.swing.JButton();
+        botonCancelarRegistroAuto = new javax.swing.JButton();
+        jLabel27 = new javax.swing.JLabel();
+        tfNombreRegistrarAuto = new javax.swing.JTextField();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
@@ -115,7 +147,6 @@ public class ventanaGerente extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         panelSuperiorGerente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -210,8 +241,18 @@ public class ventanaGerente extends javax.swing.JFrame {
         });
 
         botonRegistrarVehicGerente.setText("Vehículo");
+        botonRegistrarVehicGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarVehicGerenteActionPerformed(evt);
+            }
+        });
 
         botonRegistrarPiezaGerente.setText("Pieza");
+        botonRegistrarPiezaGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarPiezaGerenteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRegistrarGerenteLayout = new javax.swing.GroupLayout(panelRegistrarGerente);
         panelRegistrarGerente.setLayout(panelRegistrarGerenteLayout);
@@ -240,7 +281,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 14))); // NOI18N
+        panelModificarGerente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 14))); // NOI18N
 
         botonModUsuarioGerente.setText("Usuario");
 
@@ -250,22 +291,22 @@ public class ventanaGerente extends javax.swing.JFrame {
 
         botonModPiezaGerente.setText("Pieza");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelModificarGerenteLayout = new javax.swing.GroupLayout(panelModificarGerente);
+        panelModificarGerente.setLayout(panelModificarGerenteLayout);
+        panelModificarGerenteLayout.setHorizontalGroup(
+            panelModificarGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarGerenteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelModificarGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonModSedeGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonModVehGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonModPiezaGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonModUsuarioGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelModificarGerenteLayout.setVerticalGroup(
+            panelModificarGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarGerenteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botonModUsuarioGerente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -363,6 +404,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         );
 
         panelAgregarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelAgregarUsuario.setPreferredSize(new java.awt.Dimension(483, 447));
 
         labelInfoRegistroUsuarioGerente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelInfoRegistroUsuarioGerente.setText("Ingrese los siguientes datos para el registro de un usuario");
@@ -388,20 +430,21 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Dirección");
 
-        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
+        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
         comboTipoRegistroU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoRegistroUActionPerformed(evt);
             }
         });
 
-        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
+        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Sede *");
 
-        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona sede" }));
+        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona sede" }));
 
+        botonGuardarRegistroGerente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroGerente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
         botonGuardarRegistroGerente.setText("Guardar");
         botonGuardarRegistroGerente.addActionListener(new java.awt.event.ActionListener() {
@@ -410,6 +453,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             }
         });
 
+        botonCancelarRegistroGerente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonCancelarRegistroGerente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
         botonCancelarRegistroGerente.setText("Cancelar");
         botonCancelarRegistroGerente.addActionListener(new java.awt.event.ActionListener() {
@@ -526,7 +570,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroGerente)
                     .addComponent(botonCancelarRegistroGerente))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         panelAgregarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -545,6 +589,7 @@ public class ventanaGerente extends javax.swing.JFrame {
 
         tfCodigoRegistroS.setEditable(false);
 
+        botonGuardarRegistroS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
         botonGuardarRegistroS.setText("Guardar");
         botonGuardarRegistroS.addActionListener(new java.awt.event.ActionListener() {
@@ -553,6 +598,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             }
         });
 
+        botonCancelarRegistroS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonCancelarRegistroS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
         botonCancelarRegistroS.setText("Cancelar");
         botonCancelarRegistroS.addActionListener(new java.awt.event.ActionListener() {
@@ -566,28 +612,25 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelAgregarSedeLayout.setHorizontalGroup(
             panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAgregarSedeLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
                         .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                                .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel14))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tfCodigoRegistroS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                                        .addComponent(tfDireccionRegistroS, javax.swing.GroupLayout.Alignment.LEADING))))))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14))
+                        .addGap(30, 30, 30)
+                        .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCodigoRegistroS)
+                            .addComponent(tfDireccionRegistroS)
+                            .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
+                    .addComponent(jLabel11)
                     .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(78, 78, 78)
                         .addComponent(botonGuardarRegistroS)
-                        .addGap(26, 26, 26)
+                        .addGap(56, 56, 56)
                         .addComponent(botonCancelarRegistroS)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelAgregarSedeLayout.setVerticalGroup(
             panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,21 +640,258 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(tfCodigoRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                    .addComponent(tfCodigoRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(tfDireccionRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(57, 57, 57)
+                    .addComponent(tfDireccionRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonCancelarRegistroS)
-                    .addComponent(botonGuardarRegistroS))
-                .addContainerGap(109, Short.MAX_VALUE))
+                    .addComponent(botonGuardarRegistroS)
+                    .addComponent(botonCancelarRegistroS))
+                .addGap(34, 34, 34))
         );
+
+        panelAgregarPieza.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelAgregarPieza.setPreferredSize(new java.awt.Dimension(483, 447));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("Ingrese los siguientes datos para registrar una pieza");
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("Código");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Nombre");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setText("Precio");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setText("Cantidad");
+
+        botonGuardarRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonGuardarRegistroPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
+        botonGuardarRegistroPieza.setText("Guardar");
+        botonGuardarRegistroPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarRegistroPiezaActionPerformed(evt);
+            }
+        });
+
+        botonCancelarRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonCancelarRegistroPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
+        botonCancelarRegistroPieza.setText("Cancelar");
+        botonCancelarRegistroPieza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarRegistroPiezaActionPerformed(evt);
+            }
+        });
+
+        tfCodigoRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfCodigoRegistroPieza.setMinimumSize(new java.awt.Dimension(6, 20));
+
+        spCantidadRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout panelAgregarPiezaLayout = new javax.swing.GroupLayout(panelAgregarPieza);
+        panelAgregarPieza.setLayout(panelAgregarPiezaLayout);
+        panelAgregarPiezaLayout.setHorizontalGroup(
+            panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarPiezaLayout.createSequentialGroup()
+                        .addGap(0, 85, Short.MAX_VALUE)
+                        .addComponent(botonGuardarRegistroPieza)
+                        .addGap(32, 32, 32)
+                        .addComponent(botonCancelarRegistroPieza)
+                        .addGap(114, 114, 114))
+                    .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarPiezaLayout.createSequentialGroup()
+                        .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19))
+                        .addGap(31, 31, 31)
+                        .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNombreRegistroPieza)
+                            .addComponent(tfCodigoRegistroPieza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfPrecioRegistroPieza)
+                            .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                                .addComponent(spCantidadRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
+        );
+        panelAgregarPiezaLayout.setVerticalGroup(
+            panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel15)
+                .addGap(70, 70, 70)
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(tfCodigoRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(tfNombreRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(tfPrecioRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(spCantidadRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardarRegistroPieza)
+                    .addComponent(botonCancelarRegistroPieza))
+                .addGap(35, 35, 35))
+        );
+
+        panelAgregarVehiculo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelAgregarVehiculo.setPreferredSize(new java.awt.Dimension(483, 447));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setText("Ingrese los siguientes datos para registrar un automóvil");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("Código");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setText("Marca");
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setText("Modelo");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setText("Precio");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel25.setText("Color");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel26.setText("Cantidad");
+
+        botonGuardarRegistroAuto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonGuardarRegistroAuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
+        botonGuardarRegistroAuto.setText("Guardar");
+        botonGuardarRegistroAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarRegistroAutoActionPerformed(evt);
+            }
+        });
+
+        botonCancelarRegistroAuto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonCancelarRegistroAuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
+        botonCancelarRegistroAuto.setText("Cancelar");
+        botonCancelarRegistroAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarRegistroAutoActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel27.setText("Nombre");
+
+        javax.swing.GroupLayout panelAgregarVehiculoLayout = new javax.swing.GroupLayout(panelAgregarVehiculo);
+        panelAgregarVehiculo.setLayout(panelAgregarVehiculoLayout);
+        panelAgregarVehiculoLayout.setHorizontalGroup(
+            panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addComponent(botonGuardarRegistroAuto)
+                                .addGap(38, 38, 38)
+                                .addComponent(botonCancelarRegistroAuto))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel20))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tfcodigoRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 89, Short.MAX_VALUE))
+                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel27))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfColorRegistrarAuto)
+                                    .addComponent(tfModeloRegistrarAuto)
+                                    .addComponent(tfNombreRegistrarAuto)))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(spCantidadRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        panelAgregarVehiculoLayout.setVerticalGroup(
+            panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addGap(76, 76, 76)
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(tfcodigoRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27)
+                    .addComponent(tfNombreRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel25)
+                    .addComponent(tfColorRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(spCantidadRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardarRegistroAuto)
+                    .addComponent(botonCancelarRegistroAuto))
+                .addGap(34, 34, 34))
+        );
+
+        jLayeredPane1.setLayer(panelAgregarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarPieza, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarVehiculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -619,26 +899,42 @@ public class ventanaGerente extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panelAgregarSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(73, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(74, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(75, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 16, Short.MAX_VALUE)))
+                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
-        jLayeredPane1.setLayer(panelAgregarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAgregarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelInferiorGerenteLayout = new javax.swing.GroupLayout(panelInferiorGerente);
         panelInferiorGerente.setLayout(panelInferiorGerenteLayout);
@@ -653,13 +949,13 @@ public class ventanaGerente extends javax.swing.JFrame {
                             .addComponent(panelRegistrarGerente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelModificarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelAñadirGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(botonSalirGerente)
                     .addComponent(panelGenerarGerente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         panelInferiorGerenteLayout.setVerticalGroup(
             panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -670,37 +966,37 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addGroup(panelInferiorGerenteLayout.createSequentialGroup()
                         .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelRegistrarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelModificarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelAñadirGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelVisualizarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelGenerarGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(botonSalirGerente)))
-                .addContainerGap())
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelInferiorGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSuperiorGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelInferiorGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelSuperiorGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelSuperiorGerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelInferiorGerente, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addGap(8, 8, 8)
+                .addComponent(panelInferiorGerente, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -817,17 +1113,15 @@ public class ventanaGerente extends javax.swing.JFrame {
         String direccion = tfDireccionRegistroS.getText();
         
         if(nombre.equalsIgnoreCase("")||direccion.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada para la sede","Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
             Sede newsede = new Sede();
             newsede.setNombre(nombre);
             newsede.setDireccion(direccion);
             int resultado = baseDatos.guardarSede(newsede);
             
-            System.out.println(resultado);
-            
             if(resultado!= -1){
-                JOptionPane.showMessageDialog(null, "La sede ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La sede ha sido guardada con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
                 tfDireccionRegistroS.setText("");
                 tfNombreRegistroS.setText("");
                 setPanelesInvisible(-1);
@@ -886,6 +1180,118 @@ public class ventanaGerente extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_comboTipoRegistroUActionPerformed
+
+    private void botonRegistrarPiezaGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarPiezaGerenteActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(2);
+    }//GEN-LAST:event_botonRegistrarPiezaGerenteActionPerformed
+
+    private void botonCancelarRegistroPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroPiezaActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(-1);
+    }//GEN-LAST:event_botonCancelarRegistroPiezaActionPerformed
+
+    private void botonGuardarRegistroPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroPiezaActionPerformed
+        // TODO add your handling code here:
+        String codigo = tfCodigoRegistroPieza.getText();
+        String nombre = tfNombreRegistroPieza.getText();
+        try{ //Se hace un try en caso de que Cantidad y/o Precio sean ""
+            int precio = Integer.parseInt(tfPrecioRegistroPieza.getText());
+            int cantidad = Integer.parseInt(spCantidadRegistroPieza.getValue().toString());
+
+            if(codigo.equals("") || nombre.equals("") || precio < 0 || cantidad <= 0){
+                JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
+                tfPrecioRegistroPieza.setText("");
+                spCantidadRegistroPieza.setValue(0);
+            }
+            else{
+                Pieza newPieza = new Pieza();
+                newPieza.setIdPieza(codigo);
+                newPieza.setNombre(nombre);
+                newPieza.setPrecio(precio);
+                newPieza.setCantidad(cantidad);
+                int resultado = baseDatos.guardarPieza(newPieza);
+
+                if(resultado!= -1){
+                    JOptionPane.showMessageDialog(null, "La pieza ha sido guardada con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                    tfCodigoRegistroPieza.setText("");
+                    tfNombreRegistroPieza.setText("");
+                    tfPrecioRegistroPieza.setText("");
+                    spCantidadRegistroPieza.setValue(0);
+                    setPanelesInvisible(-1);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la pieza, verifique los datos","Advertencia", 
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+        catch(NumberFormatException e){ 
+            JOptionPane.showMessageDialog(null, "Verifique Cantidad y Precio","Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
+    }//GEN-LAST:event_botonGuardarRegistroPiezaActionPerformed
+
+    private void botonRegistrarVehicGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarVehicGerenteActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(3);
+    }//GEN-LAST:event_botonRegistrarVehicGerenteActionPerformed
+
+    private void botonCancelarRegistroAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroAutoActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(-1);
+    }//GEN-LAST:event_botonCancelarRegistroAutoActionPerformed
+
+    private void botonGuardarRegistroAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroAutoActionPerformed
+        // TODO add your handling code here:
+        String codigo = tfcodigoRegistrarAuto.getText();
+        String marca = tfMarcaRegistrarAuto.getText();
+        String modelo = tfModeloRegistrarAuto.getText();
+        String color = tfColorRegistrarAuto.getText();
+        String nombre = tfNombreRegistrarAuto.getText();
+        int precio=0;
+        int cantidad=0;
+        try{//Se hace un try en caso de que Cantidad y/o Precio sean ""
+            precio = Integer.parseInt(tfPrecioRegistrarAuto.getText());
+            cantidad = Integer.parseInt(spCantidadRegistrarAuto.getValue().toString());
+        
+            if(codigo.equals("") || marca.equals("") || modelo.equals("") || color.equals("") || precio <= 0 || nombre.equals("") || cantidad <= 0){
+                JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
+                tfPrecioRegistrarAuto.setText("");
+                spCantidadRegistrarAuto.setValue(0);
+            }
+            else{
+                Auto newAuto = new Auto();
+                newAuto.setCantidad(cantidad);
+                newAuto.setColor(color);
+                newAuto.setIdAuto(codigo);
+                newAuto.setMarca(marca);
+                newAuto.setModelo(modelo);
+                newAuto.setPrecio(precio);
+                newAuto.setNombre(nombre);
+                
+                int resultado = baseDatos.guardarAuto(newAuto);
+                
+                if(resultado!= -1){
+                    JOptionPane.showMessageDialog(null, "El auto ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                    tfcodigoRegistrarAuto.setText("");
+                    tfMarcaRegistrarAuto.setText("");
+                    tfModeloRegistrarAuto.setText("");
+                    tfColorRegistrarAuto.setText("");
+                    tfPrecioRegistrarAuto.setText("");
+                    tfNombreRegistrarAuto.setText("");
+                    spCantidadRegistrarAuto.setValue(0);
+                    setPanelesInvisible(-1);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el auto, verifique los datos","Advertencia", 
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        }
+        catch(NumberFormatException e){ JOptionPane.showMessageDialog(null, "Verifique Cantidad y Precio","Advertencia", JOptionPane.WARNING_MESSAGE); }
+        
+    }//GEN-LAST:event_botonGuardarRegistroAutoActionPerformed
     
     private void setPanelesInvisible(int indicePanel){
         for(int i = 0;i < paneles.size();i++){
@@ -938,10 +1344,14 @@ public class ventanaGerente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAñadirPiezasGerente;
     private javax.swing.JButton botonAñadirVehGerente;
+    private javax.swing.JButton botonCancelarRegistroAuto;
     private javax.swing.JButton botonCancelarRegistroGerente;
+    private javax.swing.JButton botonCancelarRegistroPieza;
     private javax.swing.JButton botonCancelarRegistroS;
     private javax.swing.JButton botonGenerarReporteGerente;
+    private javax.swing.JButton botonGuardarRegistroAuto;
     private javax.swing.JButton botonGuardarRegistroGerente;
+    private javax.swing.JButton botonGuardarRegistroPieza;
     private javax.swing.JButton botonGuardarRegistroS;
     private javax.swing.JButton botonModPiezaGerente;
     private javax.swing.JButton botonModSedeGerente;
@@ -965,7 +1375,20 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -977,30 +1400,43 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel labelCargoGerente;
     public javax.swing.JLabel labelIdGerente;
     private javax.swing.JLabel labelImagenGerente;
     private javax.swing.JLabel labelInfoRegistroUsuarioGerente;
     public javax.swing.JLabel labelNombreGerente;
+    private javax.swing.JPanel panelAgregarPieza;
     private javax.swing.JPanel panelAgregarSede;
     public javax.swing.JPanel panelAgregarUsuario;
+    private javax.swing.JPanel panelAgregarVehiculo;
     private javax.swing.JPanel panelAñadirGerente;
     private javax.swing.JPanel panelDatosTrabajadorGerente;
     private javax.swing.JPanel panelGenerarGerente;
     private javax.swing.JPanel panelInferiorGerente;
+    private javax.swing.JPanel panelModificarGerente;
     private javax.swing.JPanel panelRegistrarGerente;
     private javax.swing.JPanel panelSuperiorGerente;
     private javax.swing.JPanel panelVisualizarGerente;
+    private javax.swing.JSpinner spCantidadRegistrarAuto;
+    private javax.swing.JSpinner spCantidadRegistroPieza;
+    private javax.swing.JTextField tfCodigoRegistroPieza;
     private javax.swing.JTextField tfCodigoRegistroS;
+    private javax.swing.JTextField tfColorRegistrarAuto;
     private javax.swing.JTextField tfDirecRegistroU;
     private javax.swing.JTextField tfDireccionRegistroS;
     private javax.swing.JTextField tfEMailRegistroU;
     private javax.swing.JTextField tfEdadRegistroU;
     private javax.swing.JTextField tfIDRegistroU;
+    private javax.swing.JTextField tfMarcaRegistrarAuto;
+    private javax.swing.JTextField tfModeloRegistrarAuto;
+    private javax.swing.JTextField tfNombreRegistrarAuto;
+    private javax.swing.JTextField tfNombreRegistroPieza;
     private javax.swing.JTextField tfNombreRegistroS;
     private javax.swing.JTextField tfNombreRegistroU;
+    private javax.swing.JTextField tfPrecioRegistrarAuto;
+    private javax.swing.JTextField tfPrecioRegistroPieza;
     private javax.swing.JTextField tfTelRegistroU;
     private javax.swing.JTextField tfTituloRegistroU;
+    private javax.swing.JTextField tfcodigoRegistrarAuto;
     // End of variables declaration//GEN-END:variables
 }
