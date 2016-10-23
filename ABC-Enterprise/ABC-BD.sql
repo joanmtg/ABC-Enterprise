@@ -50,7 +50,8 @@ CREATE TABLE Automoviles (
 	modelo varchar(10) NOT NULL,
 	precio int NOT NULL,
 	color varchar(20) NOT NULL,
-	cantidad smallint,
+	cantidad smallint NOT NULL,
+	nombre varchar(20) NOT NULL,
 	CONSTRAINT pk_auto PRIMARY KEY(cod_auto)
 );
 
