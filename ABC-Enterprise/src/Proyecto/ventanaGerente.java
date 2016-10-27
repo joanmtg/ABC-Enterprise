@@ -1256,37 +1256,44 @@ public class ventanaGerente extends javax.swing.JFrame {
             precio = Integer.parseInt(tfPrecioRegistrarAuto.getText());
             cantidad = Integer.parseInt(spCantidadRegistrarAuto.getValue().toString());
         
-            if(codigo.equals("") || marca.equals("") || modelo.equals("") || color.equals("") || precio <= 0 || nombre.equals("") || cantidad <= 0){
+            if(codigo.equals("") || marca.equals("") || modelo.equals("") || color.equals("") || nombre.equals("") ){
                 JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
-                tfPrecioRegistrarAuto.setText("");
-                spCantidadRegistrarAuto.setValue(0);
+                
             }
             else{
-                Auto newAuto = new Auto();
-                newAuto.setCantidad(cantidad);
-                newAuto.setColor(color);
-                newAuto.setIdAuto(codigo);
-                newAuto.setMarca(marca);
-                newAuto.setModelo(modelo);
-                newAuto.setPrecio(precio);
-                newAuto.setNombre(nombre);
-                
-                int resultado = baseDatos.guardarAuto(newAuto);
-                
-                if(resultado!= -1){
-                    JOptionPane.showMessageDialog(null, "El auto ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
-                    tfcodigoRegistrarAuto.setText("");
-                    tfMarcaRegistrarAuto.setText("");
-                    tfModeloRegistrarAuto.setText("");
-                    tfColorRegistrarAuto.setText("");
+                if( precio <= 0 || cantidad <= 0){
+                    JOptionPane.showMessageDialog(null, "El precio y la cantidad deben ser mayor a cero","Advertencia", JOptionPane.WARNING_MESSAGE);
                     tfPrecioRegistrarAuto.setText("");
-                    tfNombreRegistrarAuto.setText("");
                     spCantidadRegistrarAuto.setValue(0);
-                    setPanelesInvisible(-1);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el auto, verifique los datos","Advertencia", 
-                            JOptionPane.WARNING_MESSAGE);
                 }
+                else{
+                    Auto newAuto = new Auto();
+                    newAuto.setCantidad(cantidad);
+                    newAuto.setColor(color);
+                    newAuto.setIdAuto(codigo);
+                    newAuto.setMarca(marca);
+                    newAuto.setModelo(modelo);
+                    newAuto.setPrecio(precio);
+                    newAuto.setNombre(nombre);
+
+                    int resultado = baseDatos.guardarAuto(newAuto);
+
+                    if(resultado!= -1){
+                        JOptionPane.showMessageDialog(null, "El auto ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                        tfcodigoRegistrarAuto.setText("");
+                        tfMarcaRegistrarAuto.setText("");
+                        tfModeloRegistrarAuto.setText("");
+                        tfColorRegistrarAuto.setText("");
+                        tfPrecioRegistrarAuto.setText("");
+                        tfNombreRegistrarAuto.setText("");
+                        spCantidadRegistrarAuto.setValue(0);
+                        setPanelesInvisible(-1);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el auto, verifique los datos","Advertencia", 
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+                
             }
         }
         catch(NumberFormatException e){ JOptionPane.showMessageDialog(null, "Verifique Cantidad y Precio","Advertencia", JOptionPane.WARNING_MESSAGE); }
