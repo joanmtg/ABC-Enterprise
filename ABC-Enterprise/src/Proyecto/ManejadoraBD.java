@@ -19,7 +19,7 @@ public class ManejadoraBD {
         
         String sql_guardar;
                  
-        sql_guardar = "INSERT INTO Empleados(cod_empleado,nombre,password,edad,estado,telefono,email,titulo,direccion,tipo,cod_sede)"
+        sql_guardar = "INSERT INTO Empleados(identificacion,nombre,password,edad,estado,telefono,email,titulo,direccion,tipo,cod_sede)"
                     + " VALUES ('" + newEmpleado.getCodigo() + "', '" + newEmpleado.getNombre() +  "',"
                     +           " '" + newEmpleado.getPassword()+ "', '" + newEmpleado.getEdad()+"',"
                     +           " '" + newEmpleado.getEstado()+"','" + newEmpleado.getTelefono()+ "',"
@@ -120,7 +120,7 @@ public class ManejadoraBD {
     public int buscarLogin(String username){
         String sql_select;
         int existe = 0;
-        sql_select = "SELECT count(*) FROM empleados where cod_empleado = '"+username+"'";
+        sql_select = "SELECT count(*) FROM empleados where identificacion = '"+username+"'";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -149,7 +149,7 @@ public class ManejadoraBD {
         //Se busca la informacion en la tabla empleados
         
         String sql_select, codigo="", nombre="", cargo ="", password="";
-        sql_select = "SELECT nombre,tipo,password FROM empleados where cod_empleado = '"+codUser+"'";
+        sql_select = "SELECT nombre,tipo,password FROM empleados where identificacion = '"+codUser+"'";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
