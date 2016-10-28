@@ -10,7 +10,7 @@ CREATE TABLE Sedes (
 
 
 CREATE TABLE Clientes (
-	id_cliente char(10), 
+	id_cliente serial, 
 	nombre varchar(80) NOT NULL, 
 	direccion varchar(50) NOT NULL,
 	telefono varchar(10) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE Clientes (
 );
 
 CREATE TABLE Empleados (
-	cod_empleado char(5),
+	identificacion char(15),
 	nombre varchar(80) NOT NULL,
 	password varchar(20) NOT NULL,
 	edad char(2) NOT NULL,
@@ -32,12 +32,12 @@ CREATE TABLE Empleados (
 	cod_sede integer NOT NULL,
 	CONSTRAINT fk_sedeG FOREIGN KEY(cod_sede)
 	REFERENCES Sedes(cod_sede),
-	CONSTRAINT pk_empleado PRIMARY KEY(cod_empleado)
+	CONSTRAINT pk_empleado PRIMARY KEY(identificacion)
 );
 
 
 CREATE TABLE Piezas (
-	cod_pieza char(5),
+	cod_pieza serial,
 	nombre varchar(40) NOT NULL,
 	precio int NOT NULL,
 	cantidad smallint,
@@ -45,7 +45,7 @@ CREATE TABLE Piezas (
 );
 
 CREATE TABLE Automoviles (
-	cod_auto char(5),
+	cod_auto serial,
 	marca varchar(20) NOT NULL,
 	modelo varchar(10) NOT NULL,
 	precio int NOT NULL,
@@ -93,4 +93,4 @@ CREATE TABLE PiezasOrden (
 
 INSERT INTO sedes(nombre, direccion) VALUES ('Sede de Cali', 'Univalle');
 
-INSERT INTO Empleados(cod_empleado, nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, cod_sede) VALUES ('00001', 'Linus Torvalds', '00001-30', '30', '1', '3122914869', 'linus@likeaboss.com', 'Doctor', 'Ciudad Jardin', 'Gerente',1);
+INSERT INTO Empleados(identificacion, nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, cod_sede) VALUES ('123456789', 'Linus Torvalds', '123456789-30', '30', '1', '3122914869', 'linus@likeaboss.com', 'Doctor', 'Ciudad Jardin', 'Gerente',1);
