@@ -181,8 +181,7 @@ public class ManejadoraBD {
     
     //Guarda una pieza en la BD
     public int guardarPieza(Pieza pieza){
-        String sql = "INSERT INTO Piezas(cod_pieza, nombre, precio, cantidad) VALUES ('" + pieza.getIdPieza()+
-                "','"+pieza.getNombre()+"',"+ pieza.getPrecio() +","+ pieza.getCantidad()+");";
+        String sql = "INSERT INTO Piezas(nombre, precio) VALUES ('"+pieza.getNombre()+"',"+ pieza.getPrecio() +");";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -197,8 +196,8 @@ public class ManejadoraBD {
     
     //Guarda un auto en la BD
     public int guardarAuto(Auto auto){
-        String sql = "INSERT INTO automoviles(cod_auto, marca, modelo, precio, color, cantidad, nombre) VALUES ('" + auto.getIdAuto()+
-                "','"+auto.getMarca()+"','"+ auto.getModelo()+"',"+ auto.getPrecio()+",'"+auto.getColor()+"',"+auto.getCantidad()+",'"+auto.getNombre()+"');";
+        String sql = "INSERT INTO automoviles(marca, modelo, precio, color, nombre) VALUES ('" +
+                auto.getMarca()+"','"+ auto.getModelo()+"',"+ auto.getPrecio()+",'"+auto.getColor()+"','"+ auto.getNombre()+"');";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -210,6 +209,81 @@ public class ManejadoraBD {
         catch(Exception e){ System.out.println(e); }
         return -1;
     }
+    
+    
+    //Obtiene la información de un usuario que se va a modificar
+    public ArrayList<String> obtenerInfoUsuarioModificar(String identificacion){
+        
+        String sql_select = "SELECT nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, cod_sede FROM empleados WHERE identificacion = '"+identificacion+"';";
+        ArrayList<String> informacion = new ArrayList<>();
+        
+        //Se busca la informacion en la tabla empleados
+        
+        String nombre="",  password="", edad="", estado ="", telefono ="", email ="", titulo ="", direccion ="", tipo ="", cod_sede="";
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            //
+            while(tabla.next()){
+                nombre = tabla.getString(1);
+                password = tabla.getString(2);
+                edad = tabla.getString(3);
+                estado = tabla.getString(4);
+                telefono = tabla.getString(5);
+                email = tabla.getString(6);
+                titulo = tabla.getString(7);
+                direccion = tabla.getString(8);
+                tipo = tabla.getString(9);
+                cod_sede = tabla.getString(10);
+                
+                //Se agrega al array que se retornará
+                informacion.add(nombre); //indice 0
+                informacion.add(password); //indice 1
+                informacion.add(edad); //indice 2
+                informacion.add(estado); //indice 3
+                informacion.add(telefono); //indice 4
+                informacion.add(email); //indice 5
+                informacion.add(titulo); //indice 6
+                informacion.add(direccion); //indice 7
+                informacion.add(tipo); //indice 8
+                informacion.add(cod_sede); //indice 9
+                
+            }
+             conexion.close();
+             System.out.println("Conexion cerrada");
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+        
+        return informacion;
+    }
+    
+    
+    //Modifica la información de un usuario
+    public int modificarUsuario(String identificacion, String nombre, String pass, String edad, String estado, String telefono,
+            String titulo, String email, String dir, String tipo, String sede){
+        
+        String sql_update = "UPDATE empleados set nombre='"+nombre+"', password='"+pass+"', edad='"+edad+"',"
+                + "estado='"+estado+"', telefono='"+telefono+"', email='"+email+"', titulo='"+titulo+"', "
+                + "direccion='"+dir+"', tipo='"+tipo+"' WHERE identificacion ='"+identificacion+"';";
+        
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            int numFilas = sentencia.executeUpdate(sql_update);
+            conexion.close();
+            return numFilas;
+        }
+        catch(SQLException e){ System.out.println(e); }
+        catch(Exception e){ System.out.println(e); }
+        return -1;
+        
+        
+    }
+    
+    
 
 }
     
