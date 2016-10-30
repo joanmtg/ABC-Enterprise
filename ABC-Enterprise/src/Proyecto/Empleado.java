@@ -22,6 +22,11 @@ public class Empleado {
     private String direccion;
     private int codigoSede;
     private String tipo;
+    
+    public Empleado()
+    {
+        
+    }
 
     public Empleado(String codigo, String nombre, String password, String edad, int estado, String telefono, String email, String titulo, String direccion, int codigoSede, String tipo) {
         this.codigo = codigo;

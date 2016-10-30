@@ -284,6 +284,66 @@ public class ManejadoraBD {
     }
     
     
+    //Obtiene la información de todos los usuarios
+    public ArrayList<Empleado> obtenerInfoUsuarios(){
+        
+        String sql_select = "SELECT nombre, edad, estado, telefono, email, direccion, tipo, cod_sede FROM empleados;";
+        
+        //Se busca la informacion en la tabla empleados
+        ArrayList<Empleado> empleados = new ArrayList<>();
+        String nombre="", edad="", estado ="", telefono ="", email ="", direccion ="", tipo ="";
+        int cod_sede=0;
+        
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            //
+            while(tabla.next()){
+                nombre = tabla.getString(1);
+                edad = tabla.getString(2);
+                estado = tabla.getString(3);
+                telefono = tabla.getString(4);
+                email = tabla.getString(5);
+                direccion = tabla.getString(6);
+                tipo = tabla.getString(7);
+                cod_sede = Integer.parseInt(tabla.getString(8));
+                
+                
+                Empleado newEmpleado = new Empleado();
+                newEmpleado.setNombre(nombre);
+                newEmpleado.setEdad(edad);
+                
+                int state = 0;
+
+                if (estado.equals("t")){
+                    state = 1;
+                }
+                
+                newEmpleado.setEstado(state);
+                newEmpleado.setTelefono(telefono);
+                newEmpleado.setEmail(email);
+                newEmpleado.setDireccion(direccion);
+                newEmpleado.setTipo(tipo);
+                newEmpleado.setCodigoSede(cod_sede);
+                
+                //Se agrega al array que se retornará
+                empleados.add(newEmpleado);
+                
+            }
+             conexion.close();
+             System.out.println("Conexion cerrada");
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+        
+        return empleados;
+    }
+    
+    
+    
+    
 
 }
     
