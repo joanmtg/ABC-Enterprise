@@ -1,7 +1,8 @@
 package Proyecto;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class ventanaGerente extends javax.swing.JFrame {
     static ventanaGerente objVentanaGerente = new ventanaGerente();
+    int indexSedePertenecienteUsuario; //Este Index se usa para saber en qué sede está trabajando un usuario (Se obtiene del comboBox)
     ManejadoraBD baseDatos = new ManejadoraBD();
     ArrayList<Sede> sedesBD = new ArrayList<>();
     ArrayList<JPanel> paneles = new ArrayList(); //Paneles 
@@ -94,12 +96,12 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfNombreRegistroU = new javax.swing.JTextField();
         tfIDRegistroU = new javax.swing.JTextField();
         tfEdadRegistroU = new javax.swing.JTextField();
-        comboTipoRegistroU = new javax.swing.JComboBox<String>();
-        comboEstadoRegistroU = new javax.swing.JComboBox<String>();
+        comboTipoRegistroU = new javax.swing.JComboBox<>();
+        comboEstadoRegistroU = new javax.swing.JComboBox<>();
         tfTelRegistroU = new javax.swing.JTextField();
         tfDirecRegistroU = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        comboSedeRegistroU = new javax.swing.JComboBox<String>();
+        comboSedeRegistroU = new javax.swing.JComboBox<>();
         botonGuardarRegistroGerente = new javax.swing.JButton();
         botonCancelarRegistroGerente = new javax.swing.JButton();
         tfEMailRegistroU = new javax.swing.JTextField();
@@ -149,7 +151,6 @@ public class ventanaGerente extends javax.swing.JFrame {
         labelEdadModfUsuario = new javax.swing.JLabel();
         tfEdadModfUsuario = new javax.swing.JTextField();
         labelEstadoModfUsuario = new javax.swing.JLabel();
-        tfEstadoModfUsuario = new javax.swing.JTextField();
         labelTelefonoModfUsuario = new javax.swing.JLabel();
         tfTelefonoModfUsuario = new javax.swing.JTextField();
         labelEmailModfUsuario = new javax.swing.JLabel();
@@ -159,14 +160,15 @@ public class ventanaGerente extends javax.swing.JFrame {
         labelDireccionModfUsuario = new javax.swing.JLabel();
         tfDireccionModfUsuario = new javax.swing.JTextField();
         labelTipoModfUsuario = new javax.swing.JLabel();
-        tfTipoModfUsuario = new javax.swing.JTextField();
         labelSedeModfUsuario = new javax.swing.JLabel();
-        tfNombreSedeModfUsuario = new javax.swing.JTextField();
         botonGuardarModfUsuario = new javax.swing.JButton();
         botonCancelarModfUsuario = new javax.swing.JButton();
+        comboEstadoModfUsuario = new javax.swing.JComboBox<>();
+        comboTipoModfUsuario = new javax.swing.JComboBox<>();
+        comboNombreSedeModfUsuario = new javax.swing.JComboBox<>();
         panelVisualizarUsuario = new javax.swing.JPanel();
-        tfbuscarUsuario = new javax.swing.JTextField();
-        botonBuscarUsuario = new javax.swing.JButton();
+        tfbuscarIdVisualizarUsuario = new javax.swing.JTextField();
+        botonBuscarUsuarioVisualUsuario = new javax.swing.JButton();
         botonMostrarTU = new javax.swing.JButton();
         labelIdBuscarU = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -494,19 +496,19 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Dirección");
 
-        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
+        comboTipoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona tipo", "Gerente", "Vendedor", "Jefe de taller" }));
         comboTipoRegistroU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoRegistroUActionPerformed(evt);
             }
         });
 
-        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
+        comboEstadoRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona estado", "Activo", "Inactivo" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Sede *");
 
-        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecciona sede" }));
+        comboSedeRegistroU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona sede" }));
 
         botonGuardarRegistroGerente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroGerente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
@@ -543,8 +545,11 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarUsuarioLayout.createSequentialGroup()
                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(tfEdadRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
                                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -552,7 +557,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                                     .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                                         .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
+                                .addGap(21, 21, 21)
                                 .addComponent(tfNombreRegistroU))
                             .addComponent(labelInfoRegistroUsuarioGerente)
                             .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
@@ -574,9 +579,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                                         .addGap(20, 20, 20)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfEdadRegistroU)
-                                            .addComponent(comboTipoRegistroU, 0, 140, Short.MAX_VALUE)))))))
+                                        .addComponent(comboTipoRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
                         .addGap(316, 316, 316)
                         .addComponent(tfEMailRegistroU))
@@ -634,10 +637,11 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroGerente)
                     .addComponent(botonCancelarRegistroGerente))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         panelAgregarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelAgregarSede.setPreferredSize(new java.awt.Dimension(483, 447));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Ingrese los siguientes datos para registrar la sede");
@@ -975,6 +979,22 @@ public class ventanaGerente extends javax.swing.JFrame {
             }
         });
 
+        comboEstadoModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Activo", "Inactivo" }));
+
+        comboTipoModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione tipo", "Gerente", "Vendedor", "Jefe de taller" }));
+        comboTipoModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoModfUsuarioActionPerformed(evt);
+            }
+        });
+
+        comboNombreSedeModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione sede" }));
+        comboNombreSedeModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboNombreSedeModfUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelModificarUsuarioLayout = new javax.swing.GroupLayout(panelModificarUsuario);
         panelModificarUsuario.setLayout(panelModificarUsuarioLayout);
         panelModificarUsuarioLayout.setHorizontalGroup(
@@ -989,7 +1009,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(labelCheckIdModificarUser)
                         .addGap(10, 10, 10)
-                        .addComponent(labelUsuarioNoRegistradoModfusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
+                        .addComponent(labelUsuarioNoRegistradoModfusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
                         .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel13)
@@ -1015,12 +1035,11 @@ public class ventanaGerente extends javax.swing.JFrame {
                                     .addComponent(labelSedeModfUsuario))
                                 .addGap(24, 24, 24)
                                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNombreSedeModfUsuario)
                                     .addComponent(tfDireccionModfUsuario)
                                     .addComponent(tfEmailModfUsuario)
                                     .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
                                         .addComponent(botonGuardarModfUsuario)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(botonCancelarModfUsuario))
                                     .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
                                         .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1030,12 +1049,15 @@ public class ventanaGerente extends javax.swing.JFrame {
                                                 .addComponent(labelEstadoModfUsuario))
                                             .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
                                                 .addGap(129, 129, 129)
-                                                .addComponent(labelTituloModfUsuario))
-                                            .addComponent(tfTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(labelTituloModfUsuario)))
                                         .addGap(18, 18, 18)
                                         .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(tfTituloModfUsuario)
-                                            .addComponent(tfEstadoModfUsuario))))))
+                                            .addComponent(comboEstadoModfUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(comboNombreSedeModfUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                        .addComponent(comboTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1052,9 +1074,9 @@ public class ventanaGerente extends javax.swing.JFrame {
                             .addComponent(botonComprobarIdModifUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(labelUsuarioNoRegistradoModfusuario)))
                     .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelCheckIdModificarUser)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombreModfUsuario)
                     .addComponent(tfNombreModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1067,7 +1089,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addComponent(labelEdadModfUsuario)
                     .addComponent(tfEdadModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelEstadoModfUsuario)
-                    .addComponent(tfEstadoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboEstadoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTelefonoModfUsuario)
@@ -1085,12 +1107,12 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTipoModfUsuario)
-                    .addComponent(tfTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelSedeModfUsuario)
-                    .addComponent(tfNombreSedeModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                    .addComponent(comboNombreSedeModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelarModfUsuario)
                     .addComponent(botonGuardarModfUsuario))
@@ -1100,21 +1122,21 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelVisualizarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelVisualizarUsuario.setPreferredSize(new java.awt.Dimension(483, 447));
 
-        tfbuscarUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfbuscarIdVisualizarUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                tfbuscarUsuarioFocusGained(evt);
+                tfbuscarIdVisualizarUsuarioFocusGained(evt);
             }
         });
-        tfbuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        tfbuscarIdVisualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfbuscarUsuarioActionPerformed(evt);
+                tfbuscarIdVisualizarUsuarioActionPerformed(evt);
             }
         });
 
-        botonBuscarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search.png"))); // NOI18N
-        botonBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        botonBuscarUsuarioVisualUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search-icon.png"))); // NOI18N
+        botonBuscarUsuarioVisualUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarUsuarioActionPerformed(evt);
+                botonBuscarUsuarioVisualUsuarioActionPerformed(evt);
             }
         });
 
@@ -1181,9 +1203,9 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
                         .addComponent(labelIdBuscarU, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfbuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfbuscarIdVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(botonBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonBuscarUsuarioVisualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(botonMostrarTU))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVisualizarUsuarioLayout.createSequentialGroup()
@@ -1241,9 +1263,9 @@ public class ventanaGerente extends javax.swing.JFrame {
                                     .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(labelIdBuscarU, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfbuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(tfbuscarIdVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(botonMostrarTU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(botonBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(botonBuscarUsuarioVisualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(40, 40, 40)
                                 .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1275,6 +1297,13 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addContainerGap(95, Short.MAX_VALUE))
         );
 
+        jLayeredPane1.setLayer(panelAgregarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarPieza, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelAgregarVehiculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelModificarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelVisualizarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
@@ -1304,44 +1333,38 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addComponent(panelModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(66, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(41, Short.MAX_VALUE)
                     .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(42, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
-        jLayeredPane1.setLayer(panelAgregarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAgregarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAgregarPieza, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelAgregarVehiculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelModificarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelVisualizarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelInferiorGerenteLayout = new javax.swing.GroupLayout(panelInferiorGerente);
         panelInferiorGerente.setLayout(panelInferiorGerenteLayout);
@@ -1362,7 +1385,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addComponent(panelGenerarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(16, 16, 16)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInferiorGerenteLayout.setVerticalGroup(
             panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1488,13 +1511,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             
             if(resultado ==0){
                 //Option YES
-                    
-                //Cambia el estado a numéricos
-                int state = 0;
-
-                if (estado.equals("Activo")){
-                    state = 1;
-                }
+                
 
                 //Obteniendo el código de la sede a partir del nombre
 
@@ -1508,7 +1525,7 @@ public class ventanaGerente extends javax.swing.JFrame {
 
                 //Se crea un objeto empleado
 
-                Empleado newEmpleado = new Empleado(id, nombre, password, edad, state, telefono, email, titulo, direccion, codSede, tipoUsuario);
+                Empleado newEmpleado = new Empleado(id, nombre, password, edad, estado, telefono, email, titulo, direccion, codSede, tipoUsuario);
 
                 // Guardando información gerente en BD
                 int verificacion = baseDatos.guardarUsuario(newEmpleado);
@@ -1534,7 +1551,8 @@ public class ventanaGerente extends javax.swing.JFrame {
                 }
                 //En caso de error
                 else{
-                    JOptionPane.showMessageDialog(null, "El usuario ya está registrado en la base de datos, por favor ingrese otro número de identificación","Advertencia", 
+                    JOptionPane.showMessageDialog(null, "No se ha podido registrar el usuario.\n"
+                            + "Por favor revisar que el usuario no exista o que los datos estén correctos.","Advertencia", 
                             JOptionPane.WARNING_MESSAGE);
                 }
                 
@@ -1597,7 +1615,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarRegistroSActionPerformed
 
     private void comboTipoRegistroUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoRegistroUActionPerformed
-        // TODO add your handling code here:
+        // Al gerente solo se le muestran las sedes que no tienen asignado uno. A los vendedores y jefes de taller se les muestran todas las sedes
         String tipoUsuario = (String)comboTipoRegistroU.getSelectedItem();
         
         if(tipoUsuario.equals("Gerente"))
@@ -1779,8 +1797,6 @@ public class ventanaGerente extends javax.swing.JFrame {
         labelUsuarioNoRegistradoModfusuario.setVisible(false);
         
         
-        
-        /*___________________________________________________________________________*/
         String identificacion = tfIdentificacionUserModificar.getText();
         int numero = baseDatos.buscarLogin(identificacion);
         if(numero > 0){ //Si el numero >0 es porque el usuario existe
@@ -1789,6 +1805,11 @@ public class ventanaGerente extends javax.swing.JFrame {
             tfIdentificacionUserModificar.setEditable(false);
             botonComprobarIdModifUsuario.setEnabled(false);
             
+            //Se limpia el comboBox de las sedes (Se estaban añadiendo varias veces la misma sede)
+            comboNombreSedeModfUsuario.removeAllItems();
+            
+            /*//Se agrega el primer campo por defecto
+            comboNombreSedeModfUsuario.addItem("Seleccione sede");*/
             
             //Se habilitan los label's y jTextField's
             labelNombreModfUsuario.setVisible(true);
@@ -1805,13 +1826,13 @@ public class ventanaGerente extends javax.swing.JFrame {
             tfNombreModfUsuario.setVisible(true);
             tfContraModfUsuario.setVisible(true);
             tfEdadModfUsuario.setVisible(true);
-            tfEstadoModfUsuario.setVisible(true);
+            comboEstadoModfUsuario.setVisible(true);
             tfTelefonoModfUsuario.setVisible(true);
             tfTituloModfUsuario.setVisible(true);
             tfEmailModfUsuario.setVisible(true);
             tfDireccionModfUsuario.setVisible(true);
-            tfTipoModfUsuario.setVisible(true);
-            tfNombreSedeModfUsuario.setVisible(true);
+            comboTipoModfUsuario.setVisible(true);
+            comboNombreSedeModfUsuario.setVisible(true);
             
             //Se muestra el botón Guardar
             botonGuardarModfUsuario.setVisible(true);
@@ -1826,37 +1847,34 @@ public class ventanaGerente extends javax.swing.JFrame {
             tfEdadModfUsuario.setText(informacion.get(2));
             
             String estado = informacion.get(3);
-            
-            if(estado.equals("t"))
-            {
-                estado = "Activo";
-            }
-            else
-            {
-                estado = "Inactivo";
-            }
-            
-            tfEstadoModfUsuario.setText(estado);
+            comboEstadoModfUsuario.setSelectedItem(estado);
             tfTelefonoModfUsuario.setText(informacion.get(4));
             tfEmailModfUsuario.setText(informacion.get(5)); ;
             tfTituloModfUsuario.setText(informacion.get(6));
             tfDireccionModfUsuario.setText(informacion.get(7));
-            tfTipoModfUsuario.setText(informacion.get(8));
+            comboTipoModfUsuario.setSelectedItem(informacion.get(8));
             
             // Obteniendo el nombre de la sede
-            int cod_sede = Integer.parseInt(informacion.get(9));
+            //int cod_sede = Integer.parseInt(informacion.get(9));
                     
-            String nombre_sede="";
+            /*String nombre_sede="";
             ArrayList<Sede> sedes = baseDatos.obtenerInfoSedes("");
             for(int j=0; j<sedes.size(); j++)
             {
+                nombre_sede = sedes.get(j).getNombre();
                 if(sedes.get(j).getIdSede() == cod_sede)
                 {
-                    nombre_sede = sedes.get(j).getNombre();
-                    break;
+                    //Se selecciona la sede actual a la que pertenece el empleado
+                    comboNombreSedeModfUsuario.addItem(nombre_sede);
+                    comboNombreSedeModfUsuario.setSelectedItem(nombre_sede);
+                    indexSedePertenecienteUsuario = comboNombreSedeModfUsuario.getSelectedIndex();
+                    
                 }
-            }
-            tfNombreSedeModfUsuario.setText(nombre_sede);
+                else{
+                    //Se añaden al comboBox las demás sedes existentes
+                    comboNombreSedeModfUsuario.addItem(nombre_sede);
+                }
+            }*/
             
         }
         else{
@@ -1867,6 +1885,11 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonModUsuarioGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModUsuarioGerenteActionPerformed
         // Se hace visible el respectivo panel 
         setPanelesInvisible(4);
+        
+        //Se limpia el tf y se habilita junto con el botón
+        tfIdentificacionUserModificar.setText("");
+        tfIdentificacionUserModificar.setEditable(true);
+        botonComprobarIdModifUsuario.setEnabled(true);
         
         //Se ponen invisibles los distintos label's and jTextField's
         labelCheckIdModificarUser.setVisible(false);
@@ -1886,13 +1909,13 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfNombreModfUsuario.setVisible(false);
         tfContraModfUsuario.setVisible(false);
         tfEdadModfUsuario.setVisible(false);
-        tfEstadoModfUsuario.setVisible(false);
+        comboEstadoModfUsuario.setVisible(false);
         tfTelefonoModfUsuario.setVisible(false);
         tfTituloModfUsuario.setVisible(false);
         tfEmailModfUsuario.setVisible(false);
         tfDireccionModfUsuario.setVisible(false);
-        tfTipoModfUsuario.setVisible(false);
-        tfNombreSedeModfUsuario.setVisible(false);
+        comboTipoModfUsuario.setVisible(false);
+        comboNombreSedeModfUsuario.setVisible(false);
         
         //Se oculta el botón 'Guardar' para evitar problemas
         botonGuardarModfUsuario.setVisible(false);
@@ -1906,13 +1929,13 @@ public class ventanaGerente extends javax.swing.JFrame {
         tfNombreModfUsuario.setText("");
         tfContraModfUsuario.setText("");
         tfEdadModfUsuario.setText("");
-        tfEstadoModfUsuario.setText("");
+        comboEstadoModfUsuario.setSelectedIndex(0);
         tfTelefonoModfUsuario.setText("");
         tfTituloModfUsuario.setText("");
         tfEmailModfUsuario.setText("");
         tfDireccionModfUsuario.setText("");
-        tfTipoModfUsuario.setText("");
-        tfNombreSedeModfUsuario.setText("");
+        comboTipoModfUsuario.setSelectedIndex(0);
+        comboNombreSedeModfUsuario.setSelectedIndex(0);
         tfIdentificacionUserModificar.setText("");
         
         //Se habilita el jTextField, boton. Se vuelve invisible los labels "check.." y "usuarioNoRegistrado..."
@@ -1936,24 +1959,31 @@ public class ventanaGerente extends javax.swing.JFrame {
         nombre = tfNombreModfUsuario.getText();
         pass = tfContraModfUsuario.getText();
         edad = tfEdadModfUsuario.getText();
-        estado = tfEstadoModfUsuario.getText();
+        estado = comboEstadoModfUsuario.getSelectedItem().toString();
         telefono = tfTelefonoModfUsuario.getText();
         titulo = tfTituloModfUsuario.getText();
-        email = tfEMailRegistroU.getText();
+        email = tfEmailModfUsuario.getText();
         dir = tfDireccionModfUsuario.getText();
-        tipo = tfTipoModfUsuario.getText();
-        sede = tfNombreSedeModfUsuario.getText();
+        tipo = comboTipoModfUsuario.getSelectedItem().toString();
+        sede = comboNombreSedeModfUsuario.getSelectedItem().toString();
         
-        if(identificacion.equals("") || nombre.equals("") || pass.equals("") || edad.equals("") || estado.equals("") || 
-                telefono.equals("") || titulo.equals("") || email.equals("") || dir.equals("") || tipo.equals("") || sede.equals("")){
+        
+        
+        if(identificacion.equals("") || nombre.equals("") || pass.equals("") || edad.equals("") || estado.equals("Seleccione...") || 
+                telefono.equals("") || titulo.equals("") || email.equals("") || dir.equals("") || tipo.equals("Seleccione tipo") ){
             //En caso de que algún campo esté vacío
             
             JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
             
         }
         else{
-            int resultado = baseDatos.modificarUsuario(identificacion, nombre, pass, edad, estado, telefono, titulo, email, dir, tipo, sede);
-        
+            
+            //obtengo el codigo de la sede dado su nombre
+            int cod_sede = baseDatos.buscarCodigoSede(sede);
+            
+            //Se modifica el usuario
+            int resultado = baseDatos.modificarUsuario(identificacion, nombre, pass, edad, estado, telefono, titulo, email, dir, tipo, cod_sede);
+
             if(resultado > 0){
                 JOptionPane.showMessageDialog(null, "El usuario ha sido modificado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
 
@@ -1964,13 +1994,13 @@ public class ventanaGerente extends javax.swing.JFrame {
                 tfNombreModfUsuario.setText("");
                 tfContraModfUsuario.setText("");
                 tfEdadModfUsuario.setText("");
-                tfEstadoModfUsuario.setText("");
+                comboEstadoModfUsuario.setSelectedIndex(0);
                 tfTelefonoModfUsuario.setText("");
                 tfTituloModfUsuario.setText("");
                 tfEmailModfUsuario.setText("");
                 tfDireccionModfUsuario.setText("");
-                tfTipoModfUsuario.setText("");
-                tfNombreSedeModfUsuario.setText("");
+                comboTipoModfUsuario.setSelectedIndex(0);
+                comboNombreSedeModfUsuario.setSelectedIndex(0);
                 tfIdentificacionUserModificar.setText("");
 
                 //Se habilita el jTextField, boton. Se vuelve invisible los labels "check.." y "usuarioNoRegistrado..."
@@ -1986,10 +2016,8 @@ public class ventanaGerente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el usuario, verifique los datos","Advertencia", 
                                     JOptionPane.WARNING_MESSAGE);
             }
+            
         }
-        
-        
-        
         
         
     }//GEN-LAST:event_botonGuardarModfUsuarioActionPerformed
@@ -2003,11 +2031,23 @@ public class ventanaGerente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfIdentificacionUserModificarKeyTyped
 
-    private void tfbuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfbuscarUsuarioActionPerformed
+    private void tfbuscarIdVisualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfbuscarIdVisualizarUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfbuscarUsuarioActionPerformed
+    }//GEN-LAST:event_tfbuscarIdVisualizarUsuarioActionPerformed
 
     private void botonVisUsuarioGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVisUsuarioGerenteActionPerformed
+        //Se limpian los labels y el tf
+        labelNombreV.setText("");
+        labelTelefonoV.setText("");
+        labelDireccionV.setText("");
+        labelEmailV.setText("");
+        labelSedeV.setText("");
+        labelEdadV.setText("");
+        labelEstadoV.setText("");
+        labelCargoV.setText("");
+        
+        tfbuscarIdVisualizarUsuario.setText("");
+        
         setPanelesInvisible(5); // se hace visible el panel correspondiente
         
     }//GEN-LAST:event_botonVisUsuarioGerenteActionPerformed
@@ -2041,16 +2081,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             fila[1]=empleados.get(i).getEdad(); 
             
             // Obteniendo el estado
-            String estado="";
-            if(empleados.get(i).getEstado() == 1)
-            {
-                estado = "Activo";
-            }
-            else
-            {
-                estado = "Inactivo";
-            }
-            
+            String estado=empleados.get(i).getEstado();
             fila[2]=estado; 
             fila[3]=empleados.get(i).getTelefono(); 
             fila[4]=empleados.get(i).getEmail(); 
@@ -2081,8 +2112,8 @@ public class ventanaGerente extends javax.swing.JFrame {
         newList.tableUsers.setModel(modelo);
     }//GEN-LAST:event_botonMostrarTUActionPerformed
 
-    private void botonBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarUsuarioActionPerformed
-        String identificacion = tfbuscarUsuario.getText();
+    private void botonBuscarUsuarioVisualUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarUsuarioVisualUsuarioActionPerformed
+        String identificacion = tfbuscarIdVisualizarUsuario.getText();
 
         if(identificacion.equals(""))
         {
@@ -2094,58 +2125,42 @@ public class ventanaGerente extends javax.swing.JFrame {
             labelDireccionV.setText("");
             labelCargoV.setText("");
             labelSedeV.setText("");
-            JOptionPane.showMessageDialog(null, "Debe ingresar la identificación del usuario a visualizar!", "Visualización", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe ingresar la identificación del usuario a visualizar", "Visualización", JOptionPane.WARNING_MESSAGE);
         }
-        else
-        {
+        else{
            
-        ArrayList<String> info = baseDatos.obtenerInfoUsuarioModificar(identificacion);
+            ArrayList<String> info = baseDatos.obtenerInfoUsuarioModificar(identificacion);
 
-        String nombre = info.get(0);
-        String edad = info.get(2);
-        String estado = info.get(3);
-        
-            if(estado.equals("t"))
-            {
-                estado = "Activo";
+            if(info.size() != 0){
+                String nombre = info.get(0);
+                String edad = info.get(2);
+                String estado = info.get(3);
+                String telefono = info.get(4);
+                String email = info.get(5);
+                String direccion = info.get(7);
+                String cargo = info.get(8);
+                String nombre_sede = info.get(9);
+
+                labelNombreV.setText(nombre);
+                labelEdadV.setText(edad);
+                labelEstadoV.setText(estado);
+                labelTelefonoV.setText(telefono);
+                labelEmailV.setText(email);
+                labelDireccionV.setText(direccion);
+                labelCargoV.setText(cargo);
+                labelSedeV.setText(nombre_sede);
             }
-            else
-            {
-                estado = "Inactivo";
-            }
-            
-        String telefono = info.get(4);
-        String email = info.get(5);
-        String direccion = info.get(7);
-        String cargo = info.get(8);
-        
-        // Obteniendo el nombre de la sede
-            int cod_sede = Integer.parseInt(info.get(9));
-                    
-            String nombre_sede="";
-            ArrayList<Sede> sedes = baseDatos.obtenerInfoSedes("");
-            for(int j=0; j<sedes.size(); j++)
-            {
-                if(sedes.get(j).getIdSede() == cod_sede)
-                {
-                    nombre_sede = sedes.get(j).getNombre();
-                    break;
-                }
-            }
+            else{
+                JOptionPane.showMessageDialog(null, "El usuario no se encuentra registrado", "Error", JOptionPane.WARNING_MESSAGE);
                 
-        labelNombreV.setText(nombre);
-        labelEdadV.setText(edad);
-        labelEstadoV.setText(estado);
-        labelTelefonoV.setText(telefono);
-        labelEmailV.setText(email);
-        labelDireccionV.setText(direccion);
-        labelCargoV.setText(cargo);
-        labelSedeV.setText(nombre_sede);
-        }
-    }//GEN-LAST:event_botonBuscarUsuarioActionPerformed
+            }
 
-    private void tfbuscarUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfbuscarUsuarioFocusGained
-        tfbuscarUsuario.setText("");
+            
+        }
+    }//GEN-LAST:event_botonBuscarUsuarioVisualUsuarioActionPerformed
+
+    private void tfbuscarIdVisualizarUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfbuscarIdVisualizarUsuarioFocusGained
+        tfbuscarIdVisualizarUsuario.setText("");
         labelNombreV.setText("");
         labelEdadV.setText("");
         labelEstadoV.setText("");
@@ -2154,7 +2169,70 @@ public class ventanaGerente extends javax.swing.JFrame {
         labelDireccionV.setText("");
         labelCargoV.setText("");
         labelSedeV.setText("");
-    }//GEN-LAST:event_tfbuscarUsuarioFocusGained
+    }//GEN-LAST:event_tfbuscarIdVisualizarUsuarioFocusGained
+
+    private void comboTipoModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoModfUsuarioActionPerformed
+         // TODO add your handling code here:
+                    // Al gerente solo se le muestran las sedes que no tienen asignado uno. A los vendedores y jefes de taller se les muestran todas las sedes
+        String tipoUsuario = (String)comboTipoModfUsuario.getSelectedItem();
+        
+        if(tipoUsuario.equals("Gerente"))
+        {
+            
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.removeItem(nombreSede);
+            }
+            
+            // Cargando sedes en el JComboBox
+            String identificacion = tfIdentificacionUserModificar.getText();
+            sedesBD = baseDatos.obtenerInfoSedes("Gerente");
+            ArrayList<String> infUsuario = baseDatos.obtenerInfoUsuarioModificar(identificacion);
+            
+            String sede_gerente= infUsuario.get(9);
+            
+            comboNombreSedeModfUsuario.addItem(sede_gerente);
+            comboNombreSedeModfUsuario.setSelectedItem(sede_gerente);
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.addItem(nombreSede);
+                 
+            }
+            
+            
+        }
+        else
+        {
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.removeItem(nombreSede);
+            }
+            
+            // Cargando sedes en el JComboBox
+            
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.addItem(nombreSede);
+            }
+            
+            
+        }
+    }//GEN-LAST:event_comboTipoModfUsuarioActionPerformed
+
+    private void comboNombreSedeModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNombreSedeModfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboNombreSedeModfUsuarioActionPerformed
     
     private void setPanelesInvisible(int indicePanel){
         for(int i = 0;i < paneles.size();i++){
@@ -2205,7 +2283,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAñadirPiezasGerente;
     private javax.swing.JButton botonAñadirVehGerente;
-    private javax.swing.JButton botonBuscarUsuario;
+    private javax.swing.JButton botonBuscarUsuarioVisualUsuario;
     private javax.swing.JButton botonCancelarModfUsuario;
     private javax.swing.JButton botonCancelarRegistroAuto;
     private javax.swing.JButton botonCancelarRegistroGerente;
@@ -2232,8 +2310,11 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JButton botonVisSedeGerente;
     private javax.swing.JButton botonVisUsuarioGerente;
     private javax.swing.JButton botonVisVehGerente;
+    private javax.swing.JComboBox<String> comboEstadoModfUsuario;
     private javax.swing.JComboBox<String> comboEstadoRegistroU;
+    private javax.swing.JComboBox<String> comboNombreSedeModfUsuario;
     private javax.swing.JComboBox<String> comboSedeRegistroU;
+    private javax.swing.JComboBox<String> comboTipoModfUsuario;
     private javax.swing.JComboBox<String> comboTipoRegistroU;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -2322,7 +2403,6 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JTextField tfEdadModfUsuario;
     private javax.swing.JTextField tfEdadRegistroU;
     private javax.swing.JTextField tfEmailModfUsuario;
-    private javax.swing.JTextField tfEstadoModfUsuario;
     private javax.swing.JTextField tfIDRegistroU;
     private javax.swing.JTextField tfIdentificacionUserModificar;
     private javax.swing.JTextField tfMarcaRegistrarAuto;
@@ -2332,14 +2412,12 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JTextField tfNombreRegistroPieza;
     private javax.swing.JTextField tfNombreRegistroS;
     private javax.swing.JTextField tfNombreRegistroU;
-    private javax.swing.JTextField tfNombreSedeModfUsuario;
     private javax.swing.JTextField tfPrecioRegistrarAuto;
     private javax.swing.JTextField tfPrecioRegistroPieza;
     private javax.swing.JTextField tfTelRegistroU;
     private javax.swing.JTextField tfTelefonoModfUsuario;
-    private javax.swing.JTextField tfTipoModfUsuario;
     private javax.swing.JTextField tfTituloModfUsuario;
     private javax.swing.JTextField tfTituloRegistroU;
-    private javax.swing.JTextField tfbuscarUsuario;
+    private javax.swing.JTextField tfbuscarIdVisualizarUsuario;
     // End of variables declaration//GEN-END:variables
 }

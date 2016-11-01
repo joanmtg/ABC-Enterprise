@@ -40,7 +40,7 @@ public class ManejadoraBD {
     
     
     public int guardarSede(Sede sede){
-        String sql = "INSERT INTO sedes(nombre, direccion) VALUES ('" + sede.getNombre()+
+        String sql = "INSERT INTO sedes(nombre_sede, direccion_sede) VALUES ('" + sede.getNombre()+
                 "','"+sede.getDireccion()+"')";
         try{
             Connection conexion= newConnection.conectar();
@@ -82,11 +82,11 @@ public class ManejadoraBD {
         
         if(usuario.equals("Gerente"))
         {
-             sql_select = "SELECT cod_sede, nombre FROM Sedes WHERE cod_sede IN (SELECT cod_sede FROM Sedes EXCEPT SELECT cod_sede FROM Empleados WHERE tipo='Gerente')";
+             sql_select = "SELECT cod_sede, nombre_sede FROM Sedes WHERE cod_sede IN (SELECT cod_sede FROM Sedes EXCEPT SELECT cod_sede FROM Empleados WHERE tipo='Gerente')";
         }
         else
         {
-             sql_select = "SELECT cod_sede, nombre FROM Sedes";
+             sql_select = "SELECT cod_sede, nombre_sede FROM Sedes";
         }
         
          try{
@@ -214,12 +214,12 @@ public class ManejadoraBD {
     //Obtiene la información de un usuario que se va a modificar
     public ArrayList<String> obtenerInfoUsuarioModificar(String identificacion){
         
-        String sql_select = "SELECT nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, cod_sede FROM empleados WHERE identificacion = '"+identificacion+"';";
+        String sql_select = "SELECT nombre, password, edad, estado, telefono, email, titulo, direccion, tipo, nombre_sede FROM empleados NATURAL JOIN sedes WHERE identificacion = '"+identificacion+"';";
         ArrayList<String> informacion = new ArrayList<>();
         
         //Se busca la informacion en la tabla empleados
         
-        String nombre="",  password="", edad="", estado ="", telefono ="", email ="", titulo ="", direccion ="", tipo ="", cod_sede="";
+        String nombre="",  password="", edad="", estado ="", telefono ="", email ="", titulo ="", direccion ="", tipo ="", nombre_sede="";
         try{
             Connection conexion= newConnection.conectar();
             Statement sentencia = conexion.createStatement();
@@ -235,7 +235,7 @@ public class ManejadoraBD {
                 titulo = tabla.getString(7);
                 direccion = tabla.getString(8);
                 tipo = tabla.getString(9);
-                cod_sede = tabla.getString(10);
+                nombre_sede = tabla.getString(10);
                 
                 //Se agrega al array que se retornará
                 informacion.add(nombre); //indice 0
@@ -247,7 +247,7 @@ public class ManejadoraBD {
                 informacion.add(titulo); //indice 6
                 informacion.add(direccion); //indice 7
                 informacion.add(tipo); //indice 8
-                informacion.add(cod_sede); //indice 9
+                informacion.add(nombre_sede); //indice 9
                 
             }
              conexion.close();
@@ -263,11 +263,11 @@ public class ManejadoraBD {
     
     //Modifica la información de un usuario
     public int modificarUsuario(String identificacion, String nombre, String pass, String edad, String estado, String telefono,
-            String titulo, String email, String dir, String tipo, String sede){
+            String titulo, String email, String dir, String tipo, int cod_sede){
         
         String sql_update = "UPDATE empleados set nombre='"+nombre+"', password='"+pass+"', edad='"+edad+"',"
                 + "estado='"+estado+"', telefono='"+telefono+"', email='"+email+"', titulo='"+titulo+"', "
-                + "direccion='"+dir+"', tipo='"+tipo+"' WHERE identificacion ='"+identificacion+"';";
+                + "direccion='"+dir+"', tipo='"+tipo+"', cod_sede="+cod_sede+"  WHERE identificacion ='"+identificacion+"';";
         
         try{
             Connection conexion= newConnection.conectar();
@@ -303,6 +303,7 @@ public class ManejadoraBD {
                 nombre = tabla.getString(1);
                 edad = tabla.getString(2);
                 estado = tabla.getString(3);
+                System.out.println(estado);
                 telefono = tabla.getString(4);
                 email = tabla.getString(5);
                 direccion = tabla.getString(6);
@@ -313,14 +314,7 @@ public class ManejadoraBD {
                 Empleado newEmpleado = new Empleado();
                 newEmpleado.setNombre(nombre);
                 newEmpleado.setEdad(edad);
-                
-                int state = 0;
-
-                if (estado.equals("t")){
-                    state = 1;
-                }
-                
-                newEmpleado.setEstado(state);
+                newEmpleado.setEstado(estado);
                 newEmpleado.setTelefono(telefono);
                 newEmpleado.setEmail(email);
                 newEmpleado.setDireccion(direccion);
@@ -342,9 +336,67 @@ public class ManejadoraBD {
     }
     
     
+    /*//Este método se encargará de verificar si la sede a la cual se va a cambiar el empleado ya tiene Gerente, en caso de que el empleado sea Gerente.
+    public int disponibilidadSedeModfUsuario(String nombreSede){
+        
+        String sql_count = "select count(*) from empleados NATURAL JOIN sedes s(cod_sede, Snombre, Sdireccion) WHERE Snombre = '"+nombreSede+"' AND tipo= 'Gerente';";
+        
+        
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_count);
+            int cantidad=0;
+            //
+            while(tabla.next()){
+                cantidad +=1;
+            }
+            System.out.println("Cantidad: "+cantidad);
+             conexion.close();
+             System.out.println("Conexion cerrada");
+             return cantidad;
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+         
+        return -1;
+        
+    }*/
+    
+    
+    //Este método me retorna el codigo de una sede dado su nombre
+    public int buscarCodigoSede(String nombreSede){
+        String sql_select = "select cod_sede from sedes WHERE nombre_sede ='"+nombreSede+"';";
+        int codigo=0;
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            //
+            while(tabla.next()){
+                codigo = Integer.parseInt(tabla.getString(1));
+                
+            }
+             conexion.close();
+             System.out.println("Conexion cerrada");
+             return codigo;
+
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+        
+        return codigo;
+    }
+        
+        
+        
+        
+}
     
     
 
-}
+
     
 
