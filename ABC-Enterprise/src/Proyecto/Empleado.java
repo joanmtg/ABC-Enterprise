@@ -15,15 +15,20 @@ public class Empleado {
     private String nombre;
     private String password;
     private String edad;
-    private int estado;
+    private String estado;
     private String telefono;
     private String email;
     private String titulo;
     private String direccion;
     private int codigoSede;
     private String tipo;
+    
+    public Empleado()
+    {
+        
+    }
 
-    public Empleado(String codigo, String nombre, String password, String edad, int estado, String telefono, String email, String titulo, String direccion, int codigoSede, String tipo) {
+    public Empleado(String codigo, String nombre, String password, String edad, String estado, String telefono, String email, String titulo, String direccion, int codigoSede, String tipo) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.password = password;
@@ -53,7 +58,7 @@ public class Empleado {
         this.edad = edad;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -97,7 +102,7 @@ public class Empleado {
         return edad;
     }
 
-    public int getEstado() {
+    public String getEstado() {
         return estado;
     }
 

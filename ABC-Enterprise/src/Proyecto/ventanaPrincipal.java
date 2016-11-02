@@ -1,5 +1,6 @@
 package Proyecto;
 
+import java.awt.event.KeyEvent;
 import java.util.*;
 import javax.swing.*;
 /*
@@ -43,6 +44,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         separatorVentanaP = new javax.swing.JSeparator();
         labelIncorrectoVentanaP = new javax.swing.JLabel();
         tfContraseñaVentanaP = new javax.swing.JPasswordField();
+        botonOlvidarContra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -72,6 +74,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
         tfUsuarioVentanaP.setToolTipText("");
         tfUsuarioVentanaP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        tfUsuarioVentanaP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfUsuarioVentanaPKeyTyped(evt);
+            }
+        });
 
         labelPasswordVentanaP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pass.png"))); // NOI18N
 
@@ -90,22 +97,28 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         labelIncorrectoVentanaP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelIncorrectoVentanaP.setText("Usuario o contraseña incorrecta");
 
+        tfContraseñaVentanaP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfContraseñaVentanaPKeyTyped(evt);
+            }
+        });
+
+        botonOlvidarContra.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
+        botonOlvidarContra.setText("¿Olvidaste tu contraseña?");
+        botonOlvidarContra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonOlvidarContraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInfoVentanaPLayout = new javax.swing.GroupLayout(panelInfoVentanaP);
         panelInfoVentanaP.setLayout(panelInfoVentanaPLayout);
         panelInfoVentanaPLayout.setHorizontalGroup(
             panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInfoVentanaPLayout.createSequentialGroup()
-                .addContainerGap(196, Short.MAX_VALUE)
-                .addGroup(panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
-                        .addComponent(labelInfoContraseñaVentanaP)
-                        .addGap(179, 179, 179))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
-                        .addComponent(labelInfoUsuarioVentanaP)
-                        .addGap(191, 191, 191))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
-                        .addComponent(botonIngresarVentanaP)
-                        .addGap(182, 182, 182))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(labelIncorrectoVentanaP, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
             .addGroup(panelInfoVentanaPLayout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addGroup(panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -115,15 +128,29 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfContraseñaVentanaP, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
                     .addComponent(tfUsuarioVentanaP))
-                .addContainerGap(150, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(labelIncorrectoVentanaP, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 95, 95))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelInfoVentanaPLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(separatorVentanaP)
-                .addContainerGap())
+                .addGroup(panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInfoVentanaPLayout.createSequentialGroup()
+                        .addGap(0, 186, Short.MAX_VALUE)
+                        .addGroup(panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
+                                .addComponent(labelInfoContraseñaVentanaP)
+                                .addGap(179, 179, 179))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
+                                .addComponent(labelInfoUsuarioVentanaP)
+                                .addGap(191, 191, 191))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
+                                .addComponent(botonIngresarVentanaP)
+                                .addGap(182, 182, 182))))
+                    .addGroup(panelInfoVentanaPLayout.createSequentialGroup()
+                        .addComponent(separatorVentanaP)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInfoVentanaPLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonOlvidarContra)
+                .addGap(140, 140, 140))
         );
         panelInfoVentanaPLayout.setVerticalGroup(
             panelInfoVentanaPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,8 +171,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addComponent(botonIngresarVentanaP)
                 .addGap(28, 28, 28)
                 .addComponent(separatorVentanaP, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labelIncorrectoVentanaP, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(botonOlvidarContra)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelIncorrectoVentanaP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,6 +256,33 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonIngresarVentanaPActionPerformed
 
+    private void botonOlvidarContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOlvidarContraActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Para ingresar al sistema debe ingresar la siguiente información: \n"
+                + "Usuario: Numero de identificación (Ej: 1144092748)\n"
+                + "Contraseña: Numero de identificación-Edad (Ej: 1144092748-20)\n\n"
+                + "Si ya ha realizado el cambio de contraseña, solicite a un gerente la actualización de la misma.");
+    }//GEN-LAST:event_botonOlvidarContraActionPerformed
+
+    private void tfUsuarioVentanaPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfUsuarioVentanaPKeyTyped
+        // Para que capture el ENTER
+        char cTeclaPresionada = evt.getKeyChar();
+        
+        if(cTeclaPresionada == KeyEvent.VK_ENTER){
+            botonIngresarVentanaP.doClick();
+        }
+        
+    }//GEN-LAST:event_tfUsuarioVentanaPKeyTyped
+
+    private void tfContraseñaVentanaPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfContraseñaVentanaPKeyTyped
+        // Para que capture el ENTER
+        char cTeclaPresionada = evt.getKeyChar();
+        
+        if(cTeclaPresionada == KeyEvent.VK_ENTER){
+            botonIngresarVentanaP.doClick();
+        }
+    }//GEN-LAST:event_tfContraseñaVentanaPKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -263,8 +319,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             public void run() {
                 ventanaPrincipal objVentanaPrincipal = new ventanaPrincipal();
                 objVentanaPrincipal.setVisible(true);
-                objVentanaPrincipal.separatorVentanaP.setVisible(false);
                 objVentanaPrincipal.labelIncorrectoVentanaP.setVisible(false);
+                objVentanaPrincipal.separatorVentanaP.setVisible(true);
 
             }
         });
@@ -272,6 +328,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIngresarVentanaP;
+    private javax.swing.JButton botonOlvidarContra;
     private javax.swing.JLabel labelImagenVentanaP;
     public javax.swing.JLabel labelIncorrectoVentanaP;
     private javax.swing.JLabel labelInfoContraseñaVentanaP;
