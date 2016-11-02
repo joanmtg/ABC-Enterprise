@@ -1,7 +1,10 @@
 package Proyecto;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +19,7 @@ import javax.swing.*;
 
 public class ventanaGerente extends javax.swing.JFrame {
     static ventanaGerente objVentanaGerente = new ventanaGerente();
+    int indexSedePertenecienteUsuario; //Este Index se usa para saber en qué sede está trabajando un usuario (Se obtiene del comboBox)
     ManejadoraBD baseDatos = new ManejadoraBD();
     ArrayList<Sede> sedesBD = new ArrayList<>();
     ArrayList<JPanel> paneles = new ArrayList(); //Paneles 
@@ -30,6 +34,9 @@ public class ventanaGerente extends javax.swing.JFrame {
         paneles.add(panelAgregarSede);//indice 1
         paneles.add(panelAgregarPieza); //indice 2
         paneles.add(panelAgregarVehiculo); //indice 3
+        paneles.add(panelModificarUsuario); //indice 4
+        paneles.add(panelVisualizarUsuario); //indice 5
+        paneles.add(panelModificarSede);//indice 6
         
         setPanelesInvisible(-1);//Se llama a este metodo con -1, para garantizar que ningun panel sea visible
     }
@@ -46,6 +53,9 @@ public class ventanaGerente extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        labelNombreV1 = new javax.swing.JLabel();
         panelSuperiorGerente = new javax.swing.JPanel();
         panelDatosTrabajadorGerente = new javax.swing.JPanel();
         labelNombreGerente = new javax.swing.JLabel();
@@ -102,49 +112,108 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelAgregarSede = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         tfNombreRegistroS = new javax.swing.JTextField();
-        tfCodigoRegistroS = new javax.swing.JTextField();
         tfDireccionRegistroS = new javax.swing.JTextField();
         botonGuardarRegistroS = new javax.swing.JButton();
         botonCancelarRegistroS = new javax.swing.JButton();
         panelAgregarPieza = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         botonGuardarRegistroPieza = new javax.swing.JButton();
         botonCancelarRegistroPieza = new javax.swing.JButton();
-        tfCodigoRegistroPieza = new javax.swing.JTextField();
         tfNombreRegistroPieza = new javax.swing.JTextField();
         tfPrecioRegistroPieza = new javax.swing.JTextField();
-        spCantidadRegistroPieza = new javax.swing.JSpinner();
         panelAgregarVehiculo = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        tfcodigoRegistrarAuto = new javax.swing.JTextField();
         tfMarcaRegistrarAuto = new javax.swing.JTextField();
         tfModeloRegistrarAuto = new javax.swing.JTextField();
         tfPrecioRegistrarAuto = new javax.swing.JTextField();
         tfColorRegistrarAuto = new javax.swing.JTextField();
-        spCantidadRegistrarAuto = new javax.swing.JSpinner();
         botonGuardarRegistroAuto = new javax.swing.JButton();
         botonCancelarRegistroAuto = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         tfNombreRegistrarAuto = new javax.swing.JTextField();
+        panelModificarUsuario = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        tfIdentificacionUserModificar = new javax.swing.JTextField();
+        botonComprobarIdModifUsuario = new javax.swing.JButton();
+        labelCheckIdModificarUser = new javax.swing.JLabel();
+        labelUsuarioNoRegistradoModfusuario = new javax.swing.JLabel();
+        labelNombreModfUsuario = new javax.swing.JLabel();
+        tfNombreModfUsuario = new javax.swing.JTextField();
+        labelContraModfUsuario = new javax.swing.JLabel();
+        tfContraModfUsuario = new javax.swing.JTextField();
+        labelEdadModfUsuario = new javax.swing.JLabel();
+        tfEdadModfUsuario = new javax.swing.JTextField();
+        labelEstadoModfUsuario = new javax.swing.JLabel();
+        labelTelefonoModfUsuario = new javax.swing.JLabel();
+        tfTelefonoModfUsuario = new javax.swing.JTextField();
+        labelEmailModfUsuario = new javax.swing.JLabel();
+        tfEmailModfUsuario = new javax.swing.JTextField();
+        labelTituloModfUsuario = new javax.swing.JLabel();
+        tfTituloModfUsuario = new javax.swing.JTextField();
+        labelDireccionModfUsuario = new javax.swing.JLabel();
+        tfDireccionModfUsuario = new javax.swing.JTextField();
+        labelTipoModfUsuario = new javax.swing.JLabel();
+        labelSedeModfUsuario = new javax.swing.JLabel();
+        botonGuardarModfUsuario = new javax.swing.JButton();
+        botonCancelarModfUsuario = new javax.swing.JButton();
+        comboEstadoModfUsuario = new javax.swing.JComboBox<>();
+        comboTipoModfUsuario = new javax.swing.JComboBox<>();
+        comboNombreSedeModfUsuario = new javax.swing.JComboBox<>();
+        panelModificarSede = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        tfCodigoModifSede = new javax.swing.JTextField();
+        labelCheckIdModfSede = new javax.swing.JLabel();
+        botonComprobarModfSede = new javax.swing.JButton();
+        labelSedeModfNoRegistrada = new javax.swing.JLabel();
+        botonGuardarModfSede = new javax.swing.JButton();
+        botonCancelarModfSede = new javax.swing.JButton();
+        labelNombreModfSede = new javax.swing.JLabel();
+        labelDirModfSede = new javax.swing.JLabel();
+        tfNombreModfSede = new javax.swing.JTextField();
+        tfDirModfSede = new javax.swing.JTextField();
+        panelVisualizarUsuario = new javax.swing.JPanel();
+        tfbuscarIdVisualizarUsuario = new javax.swing.JTextField();
+        botonBuscarUsuarioVisualUsuario = new javax.swing.JButton();
+        botonMostrarTU = new javax.swing.JButton();
+        labelIdBuscarU = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        labelNombreV = new javax.swing.JLabel();
+        labelEdadV = new javax.swing.JLabel();
+        labelTelefonoV = new javax.swing.JLabel();
+        labelEstadoV = new javax.swing.JLabel();
+        labelDireccionV = new javax.swing.JLabel();
+        labelCargoV = new javax.swing.JLabel();
+        labelEmailV = new javax.swing.JLabel();
+        labelSedeV = new javax.swing.JLabel();
 
         jMenu3.setText("File");
         jMenuBar2.add(jMenu3);
 
         jMenu4.setText("Edit");
         jMenuBar2.add(jMenu4);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("Edad:");
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel29.setText("Teléfono:");
+
+        labelNombreV1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -284,8 +353,18 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelModificarGerente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 14))); // NOI18N
 
         botonModUsuarioGerente.setText("Usuario");
+        botonModUsuarioGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModUsuarioGerenteActionPerformed(evt);
+            }
+        });
 
         botonModSedeGerente.setText("Sede");
+        botonModSedeGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModSedeGerenteActionPerformed(evt);
+            }
+        });
 
         botonModVehGerente.setText("Vehículo");
 
@@ -321,6 +400,11 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelVisualizarGerente.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Visualizar", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 14))); // NOI18N
 
         botonVisUsuarioGerente.setText("Usuario(s)");
+        botonVisUsuarioGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVisUsuarioGerenteActionPerformed(evt);
+            }
+        });
 
         botonVisSedeGerente.setText("Sede(s)");
 
@@ -393,7 +477,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(panelGenerarGerenteLayout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addComponent(botonGenerarReporteGerente)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGenerarGerenteLayout.setVerticalGroup(
             panelGenerarGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,62 +556,59 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelAgregarUsuario.setLayout(panelAgregarUsuarioLayout);
         panelAgregarUsuarioLayout.setHorizontalGroup(
             panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(botonGuardarRegistroGerente)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarUsuarioLayout.createSequentialGroup()
-                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfoRegistroUsuarioGerente)
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfTelRegistroU)
+                            .addComponent(comboSedeRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboEstadoRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfTituloRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(tfNombreRegistroU))
-                            .addComponent(labelInfoRegistroUsuarioGerente)
+                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonCancelarRegistroGerente)))
                             .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfTelRegistroU)
-                                    .addComponent(comboSedeRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboEstadoRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfTituloRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(botonCancelarRegistroGerente)))
-                                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfEdadRegistroU)
-                                            .addComponent(comboTipoRegistroU, 0, 140, Short.MAX_VALUE)))))))
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboTipoRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                                .addComponent(tfIDRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfEdadRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfNombreRegistroU))))
+                .addGap(47, 47, 47))
+            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(botonGuardarRegistroGerente))
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
                         .addGap(316, 316, 316)
-                        .addComponent(tfEMailRegistroU))
-                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202)
-                        .addComponent(tfDirecRegistroU))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(tfIDRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfDirecRegistroU, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(tfEMailRegistroU))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelAgregarUsuarioLayout.setVerticalGroup(
             panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,10 +651,11 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroGerente)
                     .addComponent(botonCancelarRegistroGerente))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         panelAgregarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelAgregarSede.setPreferredSize(new java.awt.Dimension(483, 447));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Ingrese los siguientes datos para registrar la sede");
@@ -581,13 +663,8 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Nombre:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setText("Codigo:");
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Direccion:");
-
-        tfCodigoRegistroS.setEditable(false);
 
         botonGuardarRegistroS.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
@@ -615,21 +692,21 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAgregarSedeLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelAgregarSedeLayout.createSequentialGroup()
                         .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14))
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12))
                         .addGap(30, 30, 30)
                         .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCodigoRegistroS)
-                            .addComponent(tfDireccionRegistroS)
-                            .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)))
-                    .addComponent(jLabel11)
-                    .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(botonGuardarRegistroS)
-                        .addGap(56, 56, 56)
-                        .addComponent(botonCancelarRegistroS)))
+                            .addComponent(tfNombreRegistroS)
+                            .addGroup(panelAgregarSedeLayout.createSequentialGroup()
+                                .addComponent(botonGuardarRegistroS)
+                                .addGap(43, 43, 43)
+                                .addComponent(botonCancelarRegistroS)
+                                .addGap(0, 87, Short.MAX_VALUE))
+                            .addComponent(tfDireccionRegistroS))))
                 .addContainerGap())
         );
         panelAgregarSedeLayout.setVerticalGroup(
@@ -637,19 +714,15 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(panelAgregarSedeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11)
-                .addGap(58, 58, 58)
+                .addGap(98, 98, 98)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(tfNombreRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(tfCodigoRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(51, 51, 51)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(tfDireccionRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroS)
                     .addComponent(botonCancelarRegistroS))
@@ -662,17 +735,11 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel15.setText("Ingrese los siguientes datos para registrar una pieza");
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel16.setText("Código");
-
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel17.setText("Nombre");
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Precio");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel19.setText("Cantidad");
 
         botonGuardarRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroPieza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
@@ -692,11 +759,6 @@ public class ventanaGerente extends javax.swing.JFrame {
             }
         });
 
-        tfCodigoRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tfCodigoRegistroPieza.setMinimumSize(new java.awt.Dimension(6, 20));
-
-        spCantidadRegistroPieza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         javax.swing.GroupLayout panelAgregarPiezaLayout = new javax.swing.GroupLayout(panelAgregarPieza);
         panelAgregarPieza.setLayout(panelAgregarPiezaLayout);
         panelAgregarPiezaLayout.setHorizontalGroup(
@@ -713,20 +775,15 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarPiezaLayout.createSequentialGroup()
-                        .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19))
-                        .addGap(31, 31, 31)
-                        .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNombreRegistroPieza)
-                            .addComponent(tfCodigoRegistroPieza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfPrecioRegistroPieza)
-                            .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
-                                .addComponent(spCantidadRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(48, 48, 48)
+                        .addComponent(tfPrecioRegistroPieza)
+                        .addContainerGap())
+                    .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(36, 36, 36)
+                        .addComponent(tfNombreRegistroPieza)
                         .addContainerGap())))
         );
         panelAgregarPiezaLayout.setVerticalGroup(
@@ -734,23 +791,15 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(panelAgregarPiezaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel15)
-                .addGap(70, 70, 70)
-                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(tfCodigoRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(92, 92, 92)
                 .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(tfNombreRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(tfPrecioRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(spCantidadRegistroPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(114, 114, 114)
                 .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroPieza)
                     .addComponent(botonCancelarRegistroPieza))
@@ -763,9 +812,6 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Ingrese los siguientes datos para registrar un automóvil");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel21.setText("Código");
-
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("Marca");
 
@@ -777,9 +823,6 @@ public class ventanaGerente extends javax.swing.JFrame {
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel25.setText("Color");
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel26.setText("Cantidad");
 
         botonGuardarRegistroAuto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonGuardarRegistroAuto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
@@ -811,47 +854,40 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                         .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(botonGuardarRegistroAuto)
-                                .addGap(38, 38, 38)
-                                .addComponent(botonCancelarRegistroAuto))
-                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel20))
                             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(botonGuardarRegistroAuto)
+                                .addGap(37, 37, 37)
+                                .addComponent(botonCancelarRegistroAuto))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(tfcodigoRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 89, Short.MAX_VALUE))
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(48, 48, 48)
-                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel27))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfColorRegistrarAuto)
-                                    .addComponent(tfModeloRegistrarAuto)
-                                    .addComponent(tfNombreRegistrarAuto)))
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel27))
                             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(spCantidadRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfColorRegistrarAuto)
+                            .addComponent(tfNombreRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         panelAgregarVehiculoLayout.setVerticalGroup(
@@ -859,39 +895,526 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel20)
-                .addGap(76, 76, 76)
-                .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(tfcodigoRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27)
-                    .addComponent(tfNombreRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                .addGap(82, 82, 82)
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23)
-                    .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(tfNombreRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27))
+                .addGap(45, 45, 45)
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23)
+                    .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)
                     .addComponent(tfColorRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(spCantidadRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel24)
+                    .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(94, 94, 94)
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroAuto)
                     .addComponent(botonCancelarRegistroAuto))
-                .addGap(34, 34, 34))
+                .addGap(40, 40, 40))
+        );
+
+        panelModificarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelModificarUsuario.setPreferredSize(new java.awt.Dimension(483, 447));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("Ingrese la identificación del usuario a modificar");
+
+        tfIdentificacionUserModificar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfIdentificacionUserModificarKeyTyped(evt);
+            }
+        });
+
+        botonComprobarIdModifUsuario.setText("Comprobar");
+        botonComprobarIdModifUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonComprobarIdModifUsuarioActionPerformed(evt);
+            }
+        });
+
+        labelCheckIdModificarUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/green-check-icon-50852.png"))); // NOI18N
+
+        labelUsuarioNoRegistradoModfusuario.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        labelUsuarioNoRegistradoModfusuario.setForeground(new java.awt.Color(255, 51, 51));
+        labelUsuarioNoRegistradoModfusuario.setText("Usuario no registrado");
+
+        labelNombreModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelNombreModfUsuario.setText("Nombre");
+
+        labelContraModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelContraModfUsuario.setText("Contraseña");
+
+        labelEdadModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelEdadModfUsuario.setText("Edad");
+
+        labelEstadoModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelEstadoModfUsuario.setText("Estado");
+
+        labelTelefonoModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTelefonoModfUsuario.setText("Teléfono");
+
+        labelEmailModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelEmailModfUsuario.setText("E-mail");
+
+        labelTituloModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTituloModfUsuario.setText("Título");
+
+        labelDireccionModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelDireccionModfUsuario.setText("Dirección");
+
+        labelTipoModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTipoModfUsuario.setText("Tipo");
+
+        labelSedeModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelSedeModfUsuario.setText("Sede");
+
+        botonGuardarModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonGuardarModfUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
+        botonGuardarModfUsuario.setText("Guardar");
+        botonGuardarModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarModfUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonCancelarModfUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonCancelarModfUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
+        botonCancelarModfUsuario.setText("Cancelar");
+        botonCancelarModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarModfUsuarioActionPerformed(evt);
+            }
+        });
+
+        comboEstadoModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione...", "Activo", "Inactivo" }));
+
+        comboTipoModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione tipo", "Gerente", "Vendedor", "Jefe de taller" }));
+        comboTipoModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoModfUsuarioActionPerformed(evt);
+            }
+        });
+
+        comboNombreSedeModfUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione sede" }));
+        comboNombreSedeModfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboNombreSedeModfUsuarioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelModificarUsuarioLayout = new javax.swing.GroupLayout(panelModificarUsuario);
+        panelModificarUsuario.setLayout(panelModificarUsuarioLayout);
+        panelModificarUsuarioLayout.setHorizontalGroup(
+            panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                        .addComponent(tfIdentificacionUserModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonComprobarIdModifUsuario)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelCheckIdModificarUser)
+                        .addGap(10, 10, 10)
+                        .addComponent(labelUsuarioNoRegistradoModfusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                        .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13)
+                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                .addComponent(labelContraModfUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfContraModfUsuario))
+                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                .addComponent(labelNombreModfUsuario)
+                                .addGap(31, 31, 31)
+                                .addComponent(tfNombreModfUsuario))
+                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelEdadModfUsuario)
+                                    .addComponent(labelTelefonoModfUsuario))
+                                .addGap(28, 28, 28)
+                                .addComponent(tfTelefonoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelEmailModfUsuario)
+                                    .addComponent(labelDireccionModfUsuario)
+                                    .addComponent(labelTipoModfUsuario)
+                                    .addComponent(labelSedeModfUsuario))
+                                .addGap(24, 24, 24)
+                                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDireccionModfUsuario)
+                                    .addComponent(tfEmailModfUsuario)
+                                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                        .addComponent(botonGuardarModfUsuario)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(botonCancelarModfUsuario))
+                                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                        .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                                .addComponent(tfEdadModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(labelEstadoModfUsuario))
+                                            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                                .addGap(129, 129, 129)
+                                                .addComponent(labelTituloModfUsuario)))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfTituloModfUsuario)
+                                            .addComponent(comboEstadoModfUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(comboNombreSedeModfUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                                        .addComponent(comboTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelModificarUsuarioLayout.setVerticalGroup(
+            panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel13)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfIdentificacionUserModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonComprobarIdModifUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelUsuarioNoRegistradoModfusuario)))
+                    .addGroup(panelModificarUsuarioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelCheckIdModificarUser)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelNombreModfUsuario)
+                    .addComponent(tfNombreModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelContraModfUsuario)
+                    .addComponent(tfContraModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelEdadModfUsuario)
+                    .addComponent(tfEdadModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEstadoModfUsuario)
+                    .addComponent(comboEstadoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTelefonoModfUsuario)
+                    .addComponent(tfTelefonoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTituloModfUsuario)
+                    .addComponent(tfTituloModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelEmailModfUsuario)
+                    .addComponent(tfEmailModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDireccionModfUsuario)
+                    .addComponent(tfDireccionModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTipoModfUsuario)
+                    .addComponent(comboTipoModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelSedeModfUsuario)
+                    .addComponent(comboNombreSedeModfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelModificarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCancelarModfUsuario)
+                    .addComponent(botonGuardarModfUsuario))
+                .addGap(13, 13, 13))
+        );
+
+        panelModificarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelModificarSede.setPreferredSize(new java.awt.Dimension(486, 447));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel34.setText("Ingrese el codigo de la sede a modicar:");
+
+        labelCheckIdModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/green-check-icon-50852.png"))); // NOI18N
+
+        botonComprobarModfSede.setText("Comprobar");
+        botonComprobarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonComprobarModfSedeActionPerformed(evt);
+            }
+        });
+
+        labelSedeModfNoRegistrada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelSedeModfNoRegistrada.setForeground(new java.awt.Color(255, 0, 0));
+        labelSedeModfNoRegistrada.setText("Sede no registrada");
+
+        botonGuardarModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
+        botonGuardarModfSede.setText("Guardar");
+        botonGuardarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarModfSedeActionPerformed(evt);
+            }
+        });
+
+        botonCancelarModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
+        botonCancelarModfSede.setText("Cancelar");
+        botonCancelarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarModfSedeActionPerformed(evt);
+            }
+        });
+
+        labelNombreModfSede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelNombreModfSede.setText("Nombre");
+
+        labelDirModfSede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelDirModfSede.setText("Dirección");
+
+        javax.swing.GroupLayout panelModificarSedeLayout = new javax.swing.GroupLayout(panelModificarSede);
+        panelModificarSede.setLayout(panelModificarSedeLayout);
+        panelModificarSedeLayout.setHorizontalGroup(
+            panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDirModfSede)
+                            .addComponent(labelNombreModfSede))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDirModfSede, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(tfNombreModfSede)))
+                    .addComponent(jLabel34)
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(botonGuardarModfSede)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonCancelarModfSede))
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addComponent(tfCodigoModifSede, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonComprobarModfSede)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelCheckIdModfSede)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelSedeModfNoRegistrada)))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        panelModificarSedeLayout.setVerticalGroup(
+            panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel34)
+                .addGap(23, 23, 23)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelSedeModfNoRegistrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfCodigoModifSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonComprobarModfSede))
+                    .addComponent(labelCheckIdModfSede))
+                .addGap(81, 81, 81)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNombreModfSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombreModfSede))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDirModfSede)
+                    .addComponent(tfDirModfSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardarModfSede)
+                    .addComponent(botonCancelarModfSede))
+                .addContainerGap())
+        );
+
+        panelVisualizarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelVisualizarUsuario.setPreferredSize(new java.awt.Dimension(483, 447));
+
+        tfbuscarIdVisualizarUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfbuscarIdVisualizarUsuarioFocusGained(evt);
+            }
+        });
+        tfbuscarIdVisualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfbuscarIdVisualizarUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonBuscarUsuarioVisualUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/search-icon.png"))); // NOI18N
+        botonBuscarUsuarioVisualUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarUsuarioVisualUsuarioActionPerformed(evt);
+            }
+        });
+
+        botonMostrarTU.setText("Mostrar todos");
+        botonMostrarTU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrarTUActionPerformed(evt);
+            }
+        });
+
+        labelIdBuscarU.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelIdBuscarU.setText("Identificación: ");
+        labelIdBuscarU.setMaximumSize(new java.awt.Dimension(71, 17));
+        labelIdBuscarU.setMinimumSize(new java.awt.Dimension(71, 17));
+        labelIdBuscarU.setPreferredSize(new java.awt.Dimension(71, 17));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel16.setText("Nombre: ");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setText("Edad:");
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel26.setText("Estado: ");
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setText("Teléfono:");
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel30.setText("E-mail: ");
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel31.setText("Dirección: ");
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel32.setText("Cargo: ");
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel33.setText("Sede: ");
+
+        labelNombreV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelEdadV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelTelefonoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelEstadoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelDireccionV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelCargoV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelEmailV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        labelSedeV.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout panelVisualizarUsuarioLayout = new javax.swing.GroupLayout(panelVisualizarUsuario);
+        panelVisualizarUsuario.setLayout(panelVisualizarUsuarioLayout);
+        panelVisualizarUsuarioLayout.setHorizontalGroup(
+            panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                        .addComponent(labelIdBuscarU, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfbuscarIdVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonBuscarUsuarioVisualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(botonMostrarTU))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVisualizarUsuarioLayout.createSequentialGroup()
+                        .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelNombreV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel28)
+                                .addGap(19, 19, 19)
+                                .addComponent(labelTelefonoV, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                        .addGap(10, 10, 10)
+                        .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelCargoV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelEdadV, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel26)
+                                .addGap(2, 2, 2)
+                                .addComponent(labelEstadoV, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38))
+                    .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                        .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel31)
+                            .addComponent(jLabel30)
+                            .addComponent(jLabel33))
+                        .addGap(11, 11, 11)
+                        .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addComponent(labelSedeV, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                    .addComponent(labelDireccionV, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                    .addContainerGap(233, Short.MAX_VALUE))
+                                .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                    .addComponent(labelEmailV, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+        );
+        panelVisualizarUsuarioLayout.setVerticalGroup(
+            panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                        .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelVisualizarUsuarioLayout.createSequentialGroup()
+                                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(labelIdBuscarU, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfbuscarIdVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(botonMostrarTU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(botonBuscarUsuarioVisualUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel16)
+                                        .addComponent(jLabel19)
+                                        .addComponent(labelNombreV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(labelEdadV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)
+                                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel26)
+                                        .addComponent(jLabel28))
+                                    .addComponent(labelTelefonoV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelEstadoV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel31)
+                                        .addComponent(jLabel32))
+                                    .addComponent(labelCargoV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(labelDireccionV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel30))
+                    .addComponent(labelEmailV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(panelVisualizarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel33)
+                    .addComponent(labelSedeV, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setLayer(panelAgregarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelAgregarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelAgregarPieza, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelAgregarVehiculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelModificarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelModificarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelVisualizarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -899,40 +1422,68 @@ public class ventanaGerente extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(panelAgregarSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(66, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(73, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(74, Short.MAX_VALUE)))
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(66, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(75, Short.MAX_VALUE)))
+                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(66, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(41, Short.MAX_VALUE)
+                    .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(42, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelModificarSede, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(74, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAgregarSede, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(panelModificarSede, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -942,7 +1493,7 @@ public class ventanaGerente extends javax.swing.JFrame {
             panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInferiorGerenteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelInferiorGerenteLayout.createSequentialGroup()
                         .addGroup(panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(panelVisualizarGerente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -952,10 +1503,10 @@ public class ventanaGerente extends javax.swing.JFrame {
                             .addComponent(panelModificarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelAñadirGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(botonSalirGerente)
-                    .addComponent(panelGenerarGerente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(panelGenerarGerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInferiorGerenteLayout.setVerticalGroup(
             panelInferiorGerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1010,17 +1561,37 @@ public class ventanaGerente extends javax.swing.JFrame {
 
     private void botonSalirGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirGerenteActionPerformed
         // TODO add your handling code here:
-        ventanaPrincipal objVentanaPrincipal = new ventanaPrincipal();
-        this.setVisible(false);
-        objVentanaPrincipal.setVisible(true);
-        objVentanaPrincipal.separatorVentanaP.setVisible(false);
-        objVentanaPrincipal.labelIncorrectoVentanaP.setVisible(false);
+        int confirmSalir = JOptionPane.YES_NO_OPTION;
+        int resultado = JOptionPane.showConfirmDialog(this, "¿Deseas salir?",  "Salir", confirmSalir);
+        
+        if(resultado == 0){
+            //Opción SI
+            ventanaPrincipal objVentanaPrincipal = new ventanaPrincipal();
+            this.setVisible(false);
+            objVentanaPrincipal.setVisible(true);
+            objVentanaPrincipal.separatorVentanaP.setVisible(true);
+            objVentanaPrincipal.labelIncorrectoVentanaP.setVisible(false);
+        }
+        
+        
+        
         
     }//GEN-LAST:event_botonSalirGerenteActionPerformed
 
     private void botonCancelarRegistroGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroGerenteActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(-1);
+        tfIDRegistroU.setText("");
+        tfNombreRegistroU.setText("");
+        tfTelRegistroU.setText("");
+        tfEMailRegistroU.setText("");
+        tfEdadRegistroU.setText("");
+        tfTelRegistroU.setText("");
+        tfDirecRegistroU.setText("");
+        tfTituloRegistroU.setText("");
+        comboSedeRegistroU.setSelectedIndex(0);
+        comboEstadoRegistroU.setSelectedIndex(0);
+        comboTipoRegistroU.setSelectedIndex(0);
     }//GEN-LAST:event_botonCancelarRegistroGerenteActionPerformed
 
     private void botonGuardarRegistroGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroGerenteActionPerformed
@@ -1045,55 +1616,70 @@ public class ventanaGerente extends javax.swing.JFrame {
         }
         else
         {
+            int confirm = JOptionPane.YES_NO_OPTION;
+            int resultado = JOptionPane.showConfirmDialog(this, "Se almacenará el siguiente usuario:\n"
+                    + "Identificación: "+id +"\n"
+                    + "Nombre: "+ nombre+ "\n"
+                    + "Edad: "+edad+ "\n"
+                    + "Telefono: "+telefono+ "\n"
+                    + "Email: "+email+ "\n"
+                    + "Titulo: "+titulo+ "\n"
+                    + "Dirección: "+direccion+ "\n"
+                    + "Tipo de Usuario: "+tipoUsuario+ "\n"
+                    + "Estado: "+estado+ "\n"
+                    + "Sede: "+sede+ "\n"
+                    + "Contraseña: "+password+"\n ¿Deseas guardar el  usuario?",  "Guardar usuario", confirm);
             
-            //Cambia el estado a numéricos
-            int state = 0;
-            
-            if (estado.equals("Activo")){
-                state = 1;
-            }
-            
-            //Obteniendo el código de la sede a partir del nombre
-            
-            for(int i=0; i < sedesBD.size(); i++)
-            {
-                if(sedesBD.get(i).getNombre().equals(sede))
+            if(resultado ==0){
+                //Option YES
+                
+
+                //Obteniendo el código de la sede a partir del nombre
+
+                for(int i=0; i < sedesBD.size(); i++)
                 {
-                    codSede = sedesBD.get(i).getIdSede();
+                    if(sedesBD.get(i).getNombre().equals(sede))
+                    {
+                        codSede = sedesBD.get(i).getIdSede();
+                    }
                 }
-            }
-                        
-            //Se crea un objeto empleado
-            
-            Empleado newEmpleado = new Empleado(id, nombre, password, edad, state, telefono, email, titulo, direccion, codSede, tipoUsuario);
-            
-            // Guardando información gerente en BD
-            int verificacion = baseDatos.guardarUsuario(newEmpleado);
-            
-            //Se verifica que no haya ocurrido ningún error de SQL
-            if(verificacion != -1){
-                // Actualizando Campos de texto y ComboBoxes
-                tfIDRegistroU.setText("");
-                tfNombreRegistroU.setText("");
-                tfTelRegistroU.setText("");
-                tfEMailRegistroU.setText("");
-                tfEdadRegistroU.setText("");
-                tfTelRegistroU.setText("");
-                tfDirecRegistroU.setText("");
-                tfTituloRegistroU.setText("");
-                comboSedeRegistroU.setSelectedIndex(0);
-                comboEstadoRegistroU.setSelectedIndex(0);
-                comboTipoRegistroU.setSelectedIndex(0);
 
-                JOptionPane.showMessageDialog(null, "Usuario registrado correctamente!", "Éxito", JOptionPane.PLAIN_MESSAGE);
-                setPanelesInvisible(-1);
+                //Se crea un objeto empleado
 
+                Empleado newEmpleado = new Empleado(id, nombre, password, edad, estado, telefono, email, titulo, direccion, codSede, tipoUsuario);
+
+                // Guardando información gerente en BD
+                int verificacion = baseDatos.guardarUsuario(newEmpleado);
+
+                //Se verifica que no haya ocurrido ningún error de SQL
+                if(verificacion != -1){
+                    // Actualizando Campos de texto y ComboBoxes
+                    tfIDRegistroU.setText("");
+                    tfNombreRegistroU.setText("");
+                    tfTelRegistroU.setText("");
+                    tfEMailRegistroU.setText("");
+                    tfEdadRegistroU.setText("");
+                    tfTelRegistroU.setText("");
+                    tfDirecRegistroU.setText("");
+                    tfTituloRegistroU.setText("");
+                    comboSedeRegistroU.setSelectedIndex(0);
+                    comboEstadoRegistroU.setSelectedIndex(0);
+                    comboTipoRegistroU.setSelectedIndex(0);
+
+                    JOptionPane.showMessageDialog(null, "Usuario registrado correctamente!", "Éxito", JOptionPane.PLAIN_MESSAGE);
+                    setPanelesInvisible(-1);
+
+                }
+                //En caso de error
+                else{
+                    JOptionPane.showMessageDialog(null, "No se ha podido registrar el usuario.\n"
+                            + "Por favor revisar que el usuario no exista o que los datos estén correctos.","Advertencia", 
+                            JOptionPane.WARNING_MESSAGE);
+                }
+                
             }
-            //En caso de error
-            else{
-                JOptionPane.showMessageDialog(null, "El usuario ya está registrado en la base de datos, por favor ingrese otro número de identificación","Advertencia", 
-                        JOptionPane.WARNING_MESSAGE);
-            }
+            
+            
 
             
         }
@@ -1102,9 +1688,6 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonRegistrarSedeGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarSedeGerenteActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(1);//el indice 1 es el indice del panel "agregarSede"
-        int codigo = baseDatos.obtenerMaxCodigoSede();
-        codigo++;
-        tfCodigoRegistroS.setText(codigo+"");
     }//GEN-LAST:event_botonRegistrarSedeGerenteActionPerformed
 
     private void botonGuardarRegistroSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroSActionPerformed
@@ -1115,30 +1698,45 @@ public class ventanaGerente extends javax.swing.JFrame {
         if(nombre.equalsIgnoreCase("")||direccion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
         }else{
-            Sede newsede = new Sede();
-            newsede.setNombre(nombre);
-            newsede.setDireccion(direccion);
-            int resultado = baseDatos.guardarSede(newsede);
-            
-            if(resultado!= -1){
-                JOptionPane.showMessageDialog(null, "La sede ha sido guardada con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
-                tfDireccionRegistroS.setText("");
-                tfNombreRegistroS.setText("");
-                setPanelesInvisible(-1);
-            }else{
-                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la sede, verifique los datos","Advertencia", 
-                        JOptionPane.WARNING_MESSAGE);
+            int confirm = JOptionPane.YES_NO_OPTION;
+            int resultadoConf = JOptionPane.showConfirmDialog(this, "Se almacenará la siguiente sede: \n"
+                    + "Nombre: "+nombre+"\n"
+                    + "Dirección: "+direccion+"\n"
+                    + "¿Desea guardar la sede?",  "Guardar sede", confirm);
+        
+            if(resultadoConf == 0){
+                //Yes Option
+                
+                Sede newsede = new Sede();
+                newsede.setNombre(nombre);
+                newsede.setDireccion(direccion);
+                int resultado = baseDatos.guardarSede(newsede);
+
+                if(resultado!= -1){
+                    JOptionPane.showMessageDialog(null, "La sede ha sido guardada con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                    tfDireccionRegistroS.setText("");
+                    tfNombreRegistroS.setText("");
+                    setPanelesInvisible(-1);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la sede, verifique los datos","Advertencia", 
+                            JOptionPane.WARNING_MESSAGE);
+                }
+                
             }
+            
+            
         }
     }//GEN-LAST:event_botonGuardarRegistroSActionPerformed
 
     private void botonCancelarRegistroSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroSActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(-1);
+        tfDireccionRegistroS.setText("");
+        tfNombreRegistroS.setText("");
     }//GEN-LAST:event_botonCancelarRegistroSActionPerformed
 
     private void comboTipoRegistroUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoRegistroUActionPerformed
-        // TODO add your handling code here:
+        // Al gerente solo se le muestran las sedes que no tienen asignado uno. A los vendedores y jefes de taller se les muestran todas las sedes
         String tipoUsuario = (String)comboTipoRegistroU.getSelectedItem();
         
         if(tipoUsuario.equals("Gerente"))
@@ -1189,39 +1787,44 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonCancelarRegistroPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroPiezaActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(-1);
+        tfNombreRegistroPieza.setText("");
+        tfPrecioRegistroPieza.setText("");
     }//GEN-LAST:event_botonCancelarRegistroPiezaActionPerformed
 
     private void botonGuardarRegistroPiezaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroPiezaActionPerformed
         // TODO add your handling code here:
-        String codigo = tfCodigoRegistroPieza.getText();
         String nombre = tfNombreRegistroPieza.getText();
         try{ //Se hace un try en caso de que Cantidad y/o Precio sean ""
             int precio = Integer.parseInt(tfPrecioRegistroPieza.getText());
-            int cantidad = Integer.parseInt(spCantidadRegistroPieza.getValue().toString());
 
-            if(codigo.equals("") || nombre.equals("") || precio < 0 || cantidad <= 0){
+            if(nombre.equals("") || precio < 0 ){
                 JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
                 tfPrecioRegistroPieza.setText("");
-                spCantidadRegistroPieza.setValue(0);
             }
             else{
+                
+                int respuesta = JOptionPane.showConfirmDialog(this, "Se almacenará la siguiente pieza: \n"
+                        + "Nombre: "+nombre+"\n"
+                        + "Precio: "+precio+"\n"
+                        + "¿Desea guardar la pieza?", 
+                        "Guardar Pieza" ,JOptionPane.YES_NO_OPTION);
+                
+                if(respuesta==0)
+                {
                 Pieza newPieza = new Pieza();
-                newPieza.setIdPieza(codigo);
                 newPieza.setNombre(nombre);
                 newPieza.setPrecio(precio);
-                newPieza.setCantidad(cantidad);
                 int resultado = baseDatos.guardarPieza(newPieza);
 
                 if(resultado!= -1){
                     JOptionPane.showMessageDialog(null, "La pieza ha sido guardada con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
-                    tfCodigoRegistroPieza.setText("");
                     tfNombreRegistroPieza.setText("");
                     tfPrecioRegistroPieza.setText("");
-                    spCantidadRegistroPieza.setValue(0);
                     setPanelesInvisible(-1);
                 }else{
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la pieza, verifique los datos","Advertencia", 
                             JOptionPane.WARNING_MESSAGE);
+                }
                 }
             }
         }
@@ -1241,36 +1844,46 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void botonCancelarRegistroAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarRegistroAutoActionPerformed
         // TODO add your handling code here:
         setPanelesInvisible(-1);
+        tfMarcaRegistrarAuto.setText("");
+        tfModeloRegistrarAuto.setText("");
+        tfColorRegistrarAuto.setText("");
+        tfPrecioRegistrarAuto.setText("");
+        tfNombreRegistrarAuto.setText("");
     }//GEN-LAST:event_botonCancelarRegistroAutoActionPerformed
 
     private void botonGuardarRegistroAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarRegistroAutoActionPerformed
         // TODO add your handling code here:
-        String codigo = tfcodigoRegistrarAuto.getText();
         String marca = tfMarcaRegistrarAuto.getText();
         String modelo = tfModeloRegistrarAuto.getText();
         String color = tfColorRegistrarAuto.getText();
         String nombre = tfNombreRegistrarAuto.getText();
         int precio=0;
-        int cantidad=0;
         try{//Se hace un try en caso de que Cantidad y/o Precio sean ""
             precio = Integer.parseInt(tfPrecioRegistrarAuto.getText());
-            cantidad = Integer.parseInt(spCantidadRegistrarAuto.getValue().toString());
         
-            if(codigo.equals("") || marca.equals("") || modelo.equals("") || color.equals("") || nombre.equals("") ){
+            if( marca.equals("") || modelo.equals("") || color.equals("") || nombre.equals("") ){
                 JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
                 
             }
             else{
-                if( precio <= 0 || cantidad <= 0){
-                    JOptionPane.showMessageDialog(null, "El precio y la cantidad deben ser mayor a cero","Advertencia", JOptionPane.WARNING_MESSAGE);
+                if( precio <= 0){
+                    JOptionPane.showMessageDialog(null, "El precio debe ser mayor a cero","Advertencia", JOptionPane.WARNING_MESSAGE);
                     tfPrecioRegistrarAuto.setText("");
-                    spCantidadRegistrarAuto.setValue(0);
                 }
                 else{
+             
+                     int respuesta = JOptionPane.showConfirmDialog(this, "Se registrará el siguiente automóvil: \n"
+                    + "Marca: "+marca+"\n"
+                    + "Nombre: "+nombre+"\n"
+                    + "Modelo: "+modelo+"\n"
+                    + "Color: "+color+"\n"
+                    + "Precio: "+precio+"\n"
+                    + "¿Desea guardar el automóvil?",  "Guardar auto", JOptionPane.YES_NO_OPTION);
+                     
+                    if(respuesta==0)
+                    {
                     Auto newAuto = new Auto();
-                    newAuto.setCantidad(cantidad);
                     newAuto.setColor(color);
-                    newAuto.setIdAuto(codigo);
                     newAuto.setMarca(marca);
                     newAuto.setModelo(modelo);
                     newAuto.setPrecio(precio);
@@ -1280,17 +1893,16 @@ public class ventanaGerente extends javax.swing.JFrame {
 
                     if(resultado!= -1){
                         JOptionPane.showMessageDialog(null, "El auto ha sido guardado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
-                        tfcodigoRegistrarAuto.setText("");
                         tfMarcaRegistrarAuto.setText("");
                         tfModeloRegistrarAuto.setText("");
                         tfColorRegistrarAuto.setText("");
                         tfPrecioRegistrarAuto.setText("");
                         tfNombreRegistrarAuto.setText("");
-                        spCantidadRegistrarAuto.setValue(0);
                         setPanelesInvisible(-1);
                     }else{
                         JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el auto, verifique los datos","Advertencia", 
                                 JOptionPane.WARNING_MESSAGE);
+                    }
                     }
                 }
                 
@@ -1299,6 +1911,524 @@ public class ventanaGerente extends javax.swing.JFrame {
         catch(NumberFormatException e){ JOptionPane.showMessageDialog(null, "Verifique Cantidad y Precio","Advertencia", JOptionPane.WARNING_MESSAGE); }
         
     }//GEN-LAST:event_botonGuardarRegistroAutoActionPerformed
+
+    private void botonComprobarIdModifUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarIdModifUsuarioActionPerformed
+        // se ponen los distintos label's invisibles
+        labelCheckIdModificarUser.setVisible(false);
+        labelUsuarioNoRegistradoModfusuario.setVisible(false);
+        
+        
+        String identificacion = tfIdentificacionUserModificar.getText();
+        int numero = baseDatos.buscarLogin(identificacion);
+        if(numero > 0){ //Si el numero >0 es porque el usuario existe
+            //No se podrían modificar la identificación y se deshabilíta el botón
+            labelCheckIdModificarUser.setVisible(true);
+            tfIdentificacionUserModificar.setEditable(false);
+            botonComprobarIdModifUsuario.setEnabled(false);
+            
+            //Se limpia el comboBox de las sedes (Se estaban añadiendo varias veces la misma sede)
+            comboNombreSedeModfUsuario.removeAllItems();
+            
+            /*//Se agrega el primer campo por defecto
+            comboNombreSedeModfUsuario.addItem("Seleccione sede");*/
+            
+            //Se habilitan los label's y jTextField's
+            labelNombreModfUsuario.setVisible(true);
+            labelContraModfUsuario.setVisible(true);
+            labelEdadModfUsuario.setVisible(true);
+            labelEstadoModfUsuario.setVisible(true);
+            labelTelefonoModfUsuario.setVisible(true);
+            labelTituloModfUsuario.setVisible(true);
+            labelEmailModfUsuario.setVisible(true);
+            labelDireccionModfUsuario.setVisible(true);
+            labelTipoModfUsuario.setVisible(true);
+            labelSedeModfUsuario.setVisible(true);
+
+            tfNombreModfUsuario.setVisible(true);
+            tfContraModfUsuario.setVisible(true);
+            tfEdadModfUsuario.setVisible(true);
+            comboEstadoModfUsuario.setVisible(true);
+            tfTelefonoModfUsuario.setVisible(true);
+            tfTituloModfUsuario.setVisible(true);
+            tfEmailModfUsuario.setVisible(true);
+            tfDireccionModfUsuario.setVisible(true);
+            comboTipoModfUsuario.setVisible(true);
+            comboNombreSedeModfUsuario.setVisible(true);
+            
+            //Se muestra el botón Guardar
+            botonGuardarModfUsuario.setVisible(true);
+            
+            
+            //Se trae la información actual del empleado
+            ArrayList<String> informacion = new ArrayList<>();
+            informacion = baseDatos.obtenerInfoUsuarioModificar(identificacion);
+            
+            tfNombreModfUsuario.setText(informacion.get(0));
+            tfContraModfUsuario.setText(informacion.get(1));
+            tfEdadModfUsuario.setText(informacion.get(2));
+            
+            String estado = informacion.get(3);
+            comboEstadoModfUsuario.setSelectedItem(estado);
+            tfTelefonoModfUsuario.setText(informacion.get(4));
+            tfEmailModfUsuario.setText(informacion.get(5)); ;
+            tfTituloModfUsuario.setText(informacion.get(6));
+            tfDireccionModfUsuario.setText(informacion.get(7));
+            comboTipoModfUsuario.setSelectedItem(informacion.get(8));
+            
+            // Obteniendo el nombre de la sede
+            //int cod_sede = Integer.parseInt(informacion.get(9));
+                    
+            /*String nombre_sede="";
+            ArrayList<Sede> sedes = baseDatos.obtenerInfoSedes("");
+            for(int j=0; j<sedes.size(); j++)
+            {
+                nombre_sede = sedes.get(j).getNombre();
+                if(sedes.get(j).getIdSede() == cod_sede)
+                {
+                    //Se selecciona la sede actual a la que pertenece el empleado
+                    comboNombreSedeModfUsuario.addItem(nombre_sede);
+                    comboNombreSedeModfUsuario.setSelectedItem(nombre_sede);
+                    indexSedePertenecienteUsuario = comboNombreSedeModfUsuario.getSelectedIndex();
+                    
+                }
+                else{
+                    //Se añaden al comboBox las demás sedes existentes
+                    comboNombreSedeModfUsuario.addItem(nombre_sede);
+                }
+            }*/
+            
+        }
+        else{
+            labelUsuarioNoRegistradoModfusuario.setVisible(true);
+        }
+    }//GEN-LAST:event_botonComprobarIdModifUsuarioActionPerformed
+
+    private void botonModUsuarioGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModUsuarioGerenteActionPerformed
+        // Se hace visible el respectivo panel 
+        setPanelesInvisible(4);
+        
+        //Se limpia el tf y se habilita junto con el botón
+        tfIdentificacionUserModificar.setText("");
+        tfIdentificacionUserModificar.setEditable(true);
+        botonComprobarIdModifUsuario.setEnabled(true);
+        
+        //Se ponen invisibles los distintos label's and jTextField's
+        labelCheckIdModificarUser.setVisible(false);
+        labelUsuarioNoRegistradoModfusuario.setVisible(false);
+        
+        labelNombreModfUsuario.setVisible(false);
+        labelContraModfUsuario.setVisible(false);
+        labelEdadModfUsuario.setVisible(false);
+        labelEstadoModfUsuario.setVisible(false);
+        labelTelefonoModfUsuario.setVisible(false);
+        labelTituloModfUsuario.setVisible(false);
+        labelEmailModfUsuario.setVisible(false);
+        labelDireccionModfUsuario.setVisible(false);
+        labelTipoModfUsuario.setVisible(false);
+        labelSedeModfUsuario.setVisible(false);
+        
+        tfNombreModfUsuario.setVisible(false);
+        tfContraModfUsuario.setVisible(false);
+        tfEdadModfUsuario.setVisible(false);
+        comboEstadoModfUsuario.setVisible(false);
+        tfTelefonoModfUsuario.setVisible(false);
+        tfTituloModfUsuario.setVisible(false);
+        tfEmailModfUsuario.setVisible(false);
+        tfDireccionModfUsuario.setVisible(false);
+        comboTipoModfUsuario.setVisible(false);
+        comboNombreSedeModfUsuario.setVisible(false);
+        
+        //Se oculta el botón 'Guardar' para evitar problemas
+        botonGuardarModfUsuario.setVisible(false);
+    }//GEN-LAST:event_botonModUsuarioGerenteActionPerformed
+
+    private void botonCancelarModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarModfUsuarioActionPerformed
+        // Se vuelven invisibles todos los paneles
+        setPanelesInvisible(-1);
+        
+        //Se limpian los JTextField's
+        tfNombreModfUsuario.setText("");
+        tfContraModfUsuario.setText("");
+        tfEdadModfUsuario.setText("");
+        comboEstadoModfUsuario.setSelectedIndex(0);
+        tfTelefonoModfUsuario.setText("");
+        tfTituloModfUsuario.setText("");
+        tfEmailModfUsuario.setText("");
+        tfDireccionModfUsuario.setText("");
+        comboTipoModfUsuario.setSelectedIndex(0);
+        comboNombreSedeModfUsuario.setSelectedIndex(0);
+        tfIdentificacionUserModificar.setText("");
+        
+        //Se habilita el jTextField, boton. Se vuelve invisible los labels "check.." y "usuarioNoRegistrado..."
+        botonComprobarIdModifUsuario.setEnabled(true);
+        tfIdentificacionUserModificar.setEditable(true);
+        labelCheckIdModificarUser.setVisible(false);
+        labelUsuarioNoRegistradoModfusuario.setVisible(false);
+        
+        //Se oculta el botón 'Guardar' para evitar problemas
+        botonGuardarModfUsuario.setVisible(false);
+        
+        
+    }//GEN-LAST:event_botonCancelarModfUsuarioActionPerformed
+
+    private void botonGuardarModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarModfUsuarioActionPerformed
+        // Se obtiene la informacion a modificar
+        
+        String identificacion, nombre, pass, edad, estado, telefono, titulo, email, dir, tipo, sede;
+        
+        identificacion = tfIdentificacionUserModificar.getText();
+        nombre = tfNombreModfUsuario.getText();
+        pass = tfContraModfUsuario.getText();
+        edad = tfEdadModfUsuario.getText();
+        estado = comboEstadoModfUsuario.getSelectedItem().toString();
+        telefono = tfTelefonoModfUsuario.getText();
+        titulo = tfTituloModfUsuario.getText();
+        email = tfEmailModfUsuario.getText();
+        dir = tfDireccionModfUsuario.getText();
+        tipo = comboTipoModfUsuario.getSelectedItem().toString();
+        sede = comboNombreSedeModfUsuario.getSelectedItem().toString();
+        
+        
+        
+        if(identificacion.equals("") || nombre.equals("") || pass.equals("") || edad.equals("") || estado.equals("Seleccione...") || 
+                telefono.equals("") || titulo.equals("") || email.equals("") || dir.equals("") || tipo.equals("Seleccione tipo") ){
+            //En caso de que algún campo esté vacío
+            
+            JOptionPane.showMessageDialog(null, "Debe ingresar toda la información solicitada","Advertencia", JOptionPane.WARNING_MESSAGE);
+            
+        }
+        else{
+            
+            //obtengo el codigo de la sede dado su nombre
+            int cod_sede = baseDatos.buscarCodigoSede(sede);
+            
+            //Se modifica el usuario
+            int resultado = baseDatos.modificarUsuario(identificacion, nombre, pass, edad, estado, telefono, titulo, email, dir, tipo, cod_sede);
+
+            if(resultado > 0){
+                JOptionPane.showMessageDialog(null, "El usuario ha sido modificado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+
+                // Se vuelven invisibles todos los paneles
+                setPanelesInvisible(-1);
+
+                //Se limpian los JTextField's
+                tfNombreModfUsuario.setText("");
+                tfContraModfUsuario.setText("");
+                tfEdadModfUsuario.setText("");
+                comboEstadoModfUsuario.setSelectedIndex(0);
+                tfTelefonoModfUsuario.setText("");
+                tfTituloModfUsuario.setText("");
+                tfEmailModfUsuario.setText("");
+                tfDireccionModfUsuario.setText("");
+                comboTipoModfUsuario.setSelectedIndex(0);
+                comboNombreSedeModfUsuario.setSelectedIndex(0);
+                tfIdentificacionUserModificar.setText("");
+
+                //Se habilita el jTextField, boton. Se vuelve invisible los labels "check.." y "usuarioNoRegistrado..."
+                botonComprobarIdModifUsuario.setEnabled(true);
+                tfIdentificacionUserModificar.setEditable(true);
+                labelCheckIdModificarUser.setVisible(false);
+                labelUsuarioNoRegistradoModfusuario.setVisible(false);
+
+                //Se oculta el botón 'Guardar' para evitar problemas
+                botonGuardarModfUsuario.setVisible(false);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el usuario, verifique los datos","Advertencia", 
+                                    JOptionPane.WARNING_MESSAGE);
+            }
+            
+        }
+        
+        
+    }//GEN-LAST:event_botonGuardarModfUsuarioActionPerformed
+
+    private void tfIdentificacionUserModificarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdentificacionUserModificarKeyTyped
+        // Para que capture el ENTER
+        char cTeclaPresionada = evt.getKeyChar();
+        
+        if(cTeclaPresionada == KeyEvent.VK_ENTER){
+            botonComprobarIdModifUsuario.doClick();
+        }
+    }//GEN-LAST:event_tfIdentificacionUserModificarKeyTyped
+
+    private void tfbuscarIdVisualizarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfbuscarIdVisualizarUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfbuscarIdVisualizarUsuarioActionPerformed
+
+    private void botonVisUsuarioGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVisUsuarioGerenteActionPerformed
+        //Se limpian los labels y el tf
+        labelNombreV.setText("");
+        labelTelefonoV.setText("");
+        labelDireccionV.setText("");
+        labelEmailV.setText("");
+        labelSedeV.setText("");
+        labelEdadV.setText("");
+        labelEstadoV.setText("");
+        labelCargoV.setText("");
+        
+        tfbuscarIdVisualizarUsuario.setText("");
+        
+        setPanelesInvisible(5); // se hace visible el panel correspondiente
+        
+    }//GEN-LAST:event_botonVisUsuarioGerenteActionPerformed
+
+    private void botonMostrarTUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarTUActionPerformed
+        
+        ventanaListaUsuarios newList = new ventanaListaUsuarios();
+        newList.setVisible(true);
+        
+        
+        ArrayList<Empleado> empleados = baseDatos.obtenerInfoUsuarios();
+        
+                
+        DefaultTableModel modelo=(DefaultTableModel) newList.tableUsers.getModel(); 
+ 
+        // Eliminando el contenido de la tabla
+        for(int i=0; i<newList.tableUsers.getRowCount(); i++)
+        {
+            modelo.removeRow(i);
+            i-=1;
+        }
+        
+        // Ingresando el contenido a la tabla
+        for(int i=0; i < empleados.size(); i++)
+        {
+              
+            Object [] fila=new Object[8]; 
+ 
+         
+            fila[0]=empleados.get(i).getNombre(); 
+            fila[1]=empleados.get(i).getEdad(); 
+            
+            // Obteniendo el estado
+            String estado=empleados.get(i).getEstado();
+            fila[2]=estado; 
+            fila[3]=empleados.get(i).getTelefono(); 
+            fila[4]=empleados.get(i).getEmail(); 
+            fila[5]=empleados.get(i).getDireccion();
+            fila[6]=empleados.get(i).getTipo();
+            
+            // Obteniendo el nombre de la sede
+            
+            String nombre_sede="";
+            ArrayList<Sede> sedes = baseDatos.obtenerInfoSedes("");
+            for(int j=0; j<sedes.size(); j++)
+            {
+                if(sedes.get(j).getIdSede() == empleados.get(i).getCodigoSede())
+                {
+                    nombre_sede = sedes.get(j).getNombre();
+                    break;
+                }
+            }
+            
+            fila[7]=nombre_sede;
+ 
+           
+             modelo.addRow(fila); 
+        }
+      
+  
+        //Sección 5
+        newList.tableUsers.setModel(modelo);
+    }//GEN-LAST:event_botonMostrarTUActionPerformed
+
+    private void botonBuscarUsuarioVisualUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarUsuarioVisualUsuarioActionPerformed
+        String identificacion = tfbuscarIdVisualizarUsuario.getText();
+
+        if(identificacion.equals(""))
+        {
+            labelNombreV.setText("");
+            labelEdadV.setText("");
+            labelEstadoV.setText("");
+            labelTelefonoV.setText("");
+            labelEmailV.setText("");
+            labelDireccionV.setText("");
+            labelCargoV.setText("");
+            labelSedeV.setText("");
+            JOptionPane.showMessageDialog(null, "Debe ingresar la identificación del usuario a visualizar", "Visualización", JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+           
+            ArrayList<String> info = baseDatos.obtenerInfoUsuarioModificar(identificacion);
+
+            if(info.size() != 0){
+                String nombre = info.get(0);
+                String edad = info.get(2);
+                String estado = info.get(3);
+                String telefono = info.get(4);
+                String email = info.get(5);
+                String direccion = info.get(7);
+                String cargo = info.get(8);
+                String nombre_sede = info.get(9);
+
+                labelNombreV.setText(nombre);
+                labelEdadV.setText(edad);
+                labelEstadoV.setText(estado);
+                labelTelefonoV.setText(telefono);
+                labelEmailV.setText(email);
+                labelDireccionV.setText(direccion);
+                labelCargoV.setText(cargo);
+                labelSedeV.setText(nombre_sede);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "El usuario no se encuentra registrado", "Error", JOptionPane.WARNING_MESSAGE);
+                
+            }
+
+            
+        }
+    }//GEN-LAST:event_botonBuscarUsuarioVisualUsuarioActionPerformed
+
+    private void tfbuscarIdVisualizarUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfbuscarIdVisualizarUsuarioFocusGained
+        tfbuscarIdVisualizarUsuario.setText("");
+        labelNombreV.setText("");
+        labelEdadV.setText("");
+        labelEstadoV.setText("");
+        labelTelefonoV.setText("");
+        labelEmailV.setText("");
+        labelDireccionV.setText("");
+        labelCargoV.setText("");
+        labelSedeV.setText("");
+    }//GEN-LAST:event_tfbuscarIdVisualizarUsuarioFocusGained
+
+    private void comboTipoModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoModfUsuarioActionPerformed
+         // TODO add your handling code here:
+                    // Al gerente solo se le muestran las sedes que no tienen asignado uno. A los vendedores y jefes de taller se les muestran todas las sedes
+        String tipoUsuario = (String)comboTipoModfUsuario.getSelectedItem();
+        
+        if(tipoUsuario.equals("Gerente"))
+        {
+            
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.removeItem(nombreSede);
+            }
+            
+            // Cargando sedes en el JComboBox
+            String identificacion = tfIdentificacionUserModificar.getText();
+            sedesBD = baseDatos.obtenerInfoSedes("Gerente");
+            ArrayList<String> infUsuario = baseDatos.obtenerInfoUsuarioModificar(identificacion);
+            
+            String sede_gerente= infUsuario.get(9);
+            
+            comboNombreSedeModfUsuario.addItem(sede_gerente);
+            comboNombreSedeModfUsuario.setSelectedItem(sede_gerente);
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.addItem(nombreSede);
+                 
+            }
+            
+            
+        }
+        else
+        {
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.removeItem(nombreSede);
+            }
+            
+            // Cargando sedes en el JComboBox
+            
+            sedesBD = baseDatos.obtenerInfoSedes("");
+            
+            for(int i=0; i < sedesBD.size(); i++)
+            {
+                String nombreSede = sedesBD.get(i).getNombre();
+                comboNombreSedeModfUsuario.addItem(nombreSede);
+            }
+            
+            
+        }
+    }//GEN-LAST:event_comboTipoModfUsuarioActionPerformed
+
+    private void comboNombreSedeModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNombreSedeModfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboNombreSedeModfUsuarioActionPerformed
+
+    private void botonModSedeGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModSedeGerenteActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(6);
+        tfCodigoModifSede.setEditable(true);
+        labelCheckIdModfSede.setVisible(false);
+        labelSedeModfNoRegistrada.setVisible(false);
+        labelDirModfSede.setVisible(false);
+        labelNombreModfSede.setVisible(false);
+        tfNombreModfSede.setVisible(false);
+        tfDirModfSede.setVisible(false);
+        botonGuardarModfSede.setVisible(false);
+        botonCancelarModfSede.setVisible(false);
+        tfNombreModfSede.setText("");
+        tfDirModfSede.setText("");
+        tfCodigoModifSede.setText("");
+    }//GEN-LAST:event_botonModSedeGerenteActionPerformed
+
+    private void botonComprobarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarModfSedeActionPerformed
+        // TODO add your handling code here:
+        //Verifica si la Sede si Existe
+        String codigoSede = tfCodigoModifSede.getText();
+        int validar = baseDatos.verificarCodigoSede(codigoSede);
+        if(validar == 1){
+            labelCheckIdModfSede.setVisible(true);
+            labelSedeModfNoRegistrada.setVisible(false);
+            Sede newSede = baseDatos.retornarSede(codigoSede);
+            tfDirModfSede.setText(newSede.getDireccion());
+            tfNombreModfSede.setText(newSede.getNombre());
+            tfCodigoModifSede.setEditable(false);
+            labelDirModfSede.setVisible(true);
+            labelNombreModfSede.setVisible(true);
+            tfNombreModfSede.setVisible(true);
+            tfDirModfSede.setVisible(true);
+            botonGuardarModfSede.setVisible(true);
+            botonCancelarModfSede.setVisible(true);
+        }else{
+            labelSedeModfNoRegistrada.setVisible(true);
+            labelCheckIdModfSede.setVisible(false);
+        }
+    }//GEN-LAST:event_botonComprobarModfSedeActionPerformed
+
+    private void botonGuardarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarModfSedeActionPerformed
+        // TODO add your handling code here:
+        if(tfNombreModfSede.getText().equals("") || tfDirModfSede.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Adventencia", JOptionPane.WARNING_MESSAGE); 
+        }else{
+            Sede sede = new Sede();
+            sede.setDireccion(tfDirModfSede.getText());
+            sede.setNombre(tfNombreModfSede.getText());
+            sede.setIdSede(Integer.parseInt(tfCodigoModifSede.getText()));
+            int validar = baseDatos.guardarModfSede(sede);
+            if(validar != -1){
+                JOptionPane.showMessageDialog(null, "La sede ha sido modificado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                panelModificarSede.setVisible(false);
+                tfNombreModfSede.setText("");
+                tfDirModfSede.setText("");
+                tfCodigoModifSede.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al guardar los datos", "Adventencia", JOptionPane.WARNING_MESSAGE); 
+                
+            }
+        }
+    }//GEN-LAST:event_botonGuardarModfSedeActionPerformed
+
+    private void botonCancelarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarModfSedeActionPerformed
+        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(this, "¿Desea cancelar la operacion",  "Moficar Sede", JOptionPane.YES_NO_OPTION);
+        if(confirmar != 1){
+            panelModificarSede.setVisible(false);
+            tfNombreModfSede.setText("");
+            tfDirModfSede.setText("");
+            tfCodigoModifSede.setText("");
+        }
+    }//GEN-LAST:event_botonCancelarModfSedeActionPerformed
     
     private void setPanelesInvisible(int indicePanel){
         for(int i = 0;i < paneles.size();i++){
@@ -1342,8 +2472,6 @@ public class ventanaGerente extends javax.swing.JFrame {
             public void run() {
                 
                 objVentanaGerente.setVisible(true);
-                objVentanaGerente.panelAgregarUsuario.setVisible(false);
-                objVentanaGerente.panelAgregarSede.setVisible(false);
             }
         });
     }
@@ -1351,11 +2479,18 @@ public class ventanaGerente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAñadirPiezasGerente;
     private javax.swing.JButton botonAñadirVehGerente;
+    private javax.swing.JButton botonBuscarUsuarioVisualUsuario;
+    private javax.swing.JButton botonCancelarModfSede;
+    private javax.swing.JButton botonCancelarModfUsuario;
     private javax.swing.JButton botonCancelarRegistroAuto;
     private javax.swing.JButton botonCancelarRegistroGerente;
     private javax.swing.JButton botonCancelarRegistroPieza;
     private javax.swing.JButton botonCancelarRegistroS;
+    private javax.swing.JButton botonComprobarIdModifUsuario;
+    private javax.swing.JButton botonComprobarModfSede;
     private javax.swing.JButton botonGenerarReporteGerente;
+    private javax.swing.JButton botonGuardarModfSede;
+    private javax.swing.JButton botonGuardarModfUsuario;
     private javax.swing.JButton botonGuardarRegistroAuto;
     private javax.swing.JButton botonGuardarRegistroGerente;
     private javax.swing.JButton botonGuardarRegistroPieza;
@@ -1364,6 +2499,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JButton botonModSedeGerente;
     private javax.swing.JButton botonModUsuarioGerente;
     private javax.swing.JButton botonModVehGerente;
+    private javax.swing.JButton botonMostrarTU;
     private javax.swing.JButton botonRegistrarPiezaGerente;
     private javax.swing.JButton botonRegistrarSedeGerente;
     private javax.swing.JButton botonRegistrarUsuarioGerente;
@@ -1373,8 +2509,11 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JButton botonVisSedeGerente;
     private javax.swing.JButton botonVisUsuarioGerente;
     private javax.swing.JButton botonVisVehGerente;
+    private javax.swing.JComboBox<String> comboEstadoModfUsuario;
     private javax.swing.JComboBox<String> comboEstadoRegistroU;
+    private javax.swing.JComboBox<String> comboNombreSedeModfUsuario;
     private javax.swing.JComboBox<String> comboSedeRegistroU;
+    private javax.swing.JComboBox<String> comboTipoModfUsuario;
     private javax.swing.JComboBox<String> comboTipoRegistroU;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1396,7 +2535,14 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1408,10 +2554,36 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar2;
     public javax.swing.JLabel labelCargoGerente;
+    private javax.swing.JLabel labelCargoV;
+    private javax.swing.JLabel labelCheckIdModfSede;
+    private javax.swing.JLabel labelCheckIdModificarUser;
+    private javax.swing.JLabel labelContraModfUsuario;
+    private javax.swing.JLabel labelDirModfSede;
+    private javax.swing.JLabel labelDireccionModfUsuario;
+    private javax.swing.JLabel labelDireccionV;
+    private javax.swing.JLabel labelEdadModfUsuario;
+    private javax.swing.JLabel labelEdadV;
+    private javax.swing.JLabel labelEmailModfUsuario;
+    private javax.swing.JLabel labelEmailV;
+    private javax.swing.JLabel labelEstadoModfUsuario;
+    private javax.swing.JLabel labelEstadoV;
+    private javax.swing.JLabel labelIdBuscarU;
     public javax.swing.JLabel labelIdGerente;
     private javax.swing.JLabel labelImagenGerente;
     private javax.swing.JLabel labelInfoRegistroUsuarioGerente;
     public javax.swing.JLabel labelNombreGerente;
+    private javax.swing.JLabel labelNombreModfSede;
+    private javax.swing.JLabel labelNombreModfUsuario;
+    private javax.swing.JLabel labelNombreV;
+    private javax.swing.JLabel labelNombreV1;
+    private javax.swing.JLabel labelSedeModfNoRegistrada;
+    private javax.swing.JLabel labelSedeModfUsuario;
+    private javax.swing.JLabel labelSedeV;
+    private javax.swing.JLabel labelTelefonoModfUsuario;
+    private javax.swing.JLabel labelTelefonoV;
+    private javax.swing.JLabel labelTipoModfUsuario;
+    private javax.swing.JLabel labelTituloModfUsuario;
+    private javax.swing.JLabel labelUsuarioNoRegistradoModfusuario;
     private javax.swing.JPanel panelAgregarPieza;
     private javax.swing.JPanel panelAgregarSede;
     public javax.swing.JPanel panelAgregarUsuario;
@@ -1421,21 +2593,29 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JPanel panelGenerarGerente;
     private javax.swing.JPanel panelInferiorGerente;
     private javax.swing.JPanel panelModificarGerente;
+    private javax.swing.JPanel panelModificarSede;
+    private javax.swing.JPanel panelModificarUsuario;
     private javax.swing.JPanel panelRegistrarGerente;
     private javax.swing.JPanel panelSuperiorGerente;
     private javax.swing.JPanel panelVisualizarGerente;
-    private javax.swing.JSpinner spCantidadRegistrarAuto;
-    private javax.swing.JSpinner spCantidadRegistroPieza;
-    private javax.swing.JTextField tfCodigoRegistroPieza;
-    private javax.swing.JTextField tfCodigoRegistroS;
+    private javax.swing.JPanel panelVisualizarUsuario;
+    private javax.swing.JTextField tfCodigoModifSede;
     private javax.swing.JTextField tfColorRegistrarAuto;
+    private javax.swing.JTextField tfContraModfUsuario;
+    private javax.swing.JTextField tfDirModfSede;
     private javax.swing.JTextField tfDirecRegistroU;
+    private javax.swing.JTextField tfDireccionModfUsuario;
     private javax.swing.JTextField tfDireccionRegistroS;
     private javax.swing.JTextField tfEMailRegistroU;
+    private javax.swing.JTextField tfEdadModfUsuario;
     private javax.swing.JTextField tfEdadRegistroU;
+    private javax.swing.JTextField tfEmailModfUsuario;
     private javax.swing.JTextField tfIDRegistroU;
+    private javax.swing.JTextField tfIdentificacionUserModificar;
     private javax.swing.JTextField tfMarcaRegistrarAuto;
     private javax.swing.JTextField tfModeloRegistrarAuto;
+    private javax.swing.JTextField tfNombreModfSede;
+    private javax.swing.JTextField tfNombreModfUsuario;
     private javax.swing.JTextField tfNombreRegistrarAuto;
     private javax.swing.JTextField tfNombreRegistroPieza;
     private javax.swing.JTextField tfNombreRegistroS;
@@ -1443,7 +2623,9 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JTextField tfPrecioRegistrarAuto;
     private javax.swing.JTextField tfPrecioRegistroPieza;
     private javax.swing.JTextField tfTelRegistroU;
+    private javax.swing.JTextField tfTelefonoModfUsuario;
+    private javax.swing.JTextField tfTituloModfUsuario;
     private javax.swing.JTextField tfTituloRegistroU;
-    private javax.swing.JTextField tfcodigoRegistrarAuto;
+    private javax.swing.JTextField tfbuscarIdVisualizarUsuario;
     // End of variables declaration//GEN-END:variables
 }
