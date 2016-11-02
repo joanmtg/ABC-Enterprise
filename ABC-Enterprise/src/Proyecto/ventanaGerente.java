@@ -36,6 +36,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         paneles.add(panelAgregarVehiculo); //indice 3
         paneles.add(panelModificarUsuario); //indice 4
         paneles.add(panelVisualizarUsuario); //indice 5
+        paneles.add(panelModificarSede);//indice 6
         
         setPanelesInvisible(-1);//Se llama a este metodo con -1, para garantizar que ningun panel sea visible
     }
@@ -166,6 +167,18 @@ public class ventanaGerente extends javax.swing.JFrame {
         comboEstadoModfUsuario = new javax.swing.JComboBox<>();
         comboTipoModfUsuario = new javax.swing.JComboBox<>();
         comboNombreSedeModfUsuario = new javax.swing.JComboBox<>();
+        panelModificarSede = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        tfCodigoModifSede = new javax.swing.JTextField();
+        labelCheckIdModfSede = new javax.swing.JLabel();
+        botonComprobarModfSede = new javax.swing.JButton();
+        labelSedeModfNoRegistrada = new javax.swing.JLabel();
+        botonGuardarModfSede = new javax.swing.JButton();
+        botonCancelarModfSede = new javax.swing.JButton();
+        labelNombreModfSede = new javax.swing.JLabel();
+        labelDirModfSede = new javax.swing.JLabel();
+        tfNombreModfSede = new javax.swing.JTextField();
+        tfDirModfSede = new javax.swing.JTextField();
         panelVisualizarUsuario = new javax.swing.JPanel();
         tfbuscarIdVisualizarUsuario = new javax.swing.JTextField();
         botonBuscarUsuarioVisualUsuario = new javax.swing.JButton();
@@ -347,6 +360,11 @@ public class ventanaGerente extends javax.swing.JFrame {
         });
 
         botonModSedeGerente.setText("Sede");
+        botonModSedeGerente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModSedeGerenteActionPerformed(evt);
+            }
+        });
 
         botonModVehGerente.setText("Vehículo");
 
@@ -538,63 +556,59 @@ public class ventanaGerente extends javax.swing.JFrame {
         panelAgregarUsuario.setLayout(panelAgregarUsuarioLayout);
         panelAgregarUsuarioLayout.setHorizontalGroup(
             panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(botonGuardarRegistroGerente)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarUsuarioLayout.createSequentialGroup()
-                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfoRegistroUsuarioGerente)
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(tfEdadRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfTelRegistroU)
+                            .addComponent(comboSedeRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboEstadoRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfTituloRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botonCancelarRegistroGerente)))
+                            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboTipoRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(21, 21, 21)
-                                .addComponent(tfNombreRegistroU))
-                            .addComponent(labelInfoRegistroUsuarioGerente)
-                            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfTelRegistroU)
-                                    .addComponent(comboSedeRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboEstadoRegistroU, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfTituloRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(botonCancelarRegistroGerente)))
-                                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(comboTipoRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(tfIDRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfEdadRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfNombreRegistroU))))
+                .addGap(47, 47, 47))
+            .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(botonGuardarRegistroGerente))
                     .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
                         .addGap(316, 316, 316)
-                        .addComponent(tfEMailRegistroU))
-                    .addGroup(panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202)
-                        .addComponent(tfDirecRegistroU))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarUsuarioLayout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(tfIDRegistroU, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(23, 23, 23))
+                        .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tfDirecRegistroU, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(tfEMailRegistroU))))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelAgregarUsuarioLayout.setVerticalGroup(
             panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -637,7 +651,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(panelAgregarUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroGerente)
                     .addComponent(botonCancelarRegistroGerente))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         panelAgregarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -678,22 +692,21 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(37, 37, 37)
-                        .addComponent(tfNombreRegistroS))
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
+                        .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12))
                         .addGap(30, 30, 30)
                         .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNombreRegistroS)
                             .addGroup(panelAgregarSedeLayout.createSequentialGroup()
                                 .addComponent(botonGuardarRegistroS)
                                 .addGap(43, 43, 43)
                                 .addComponent(botonCancelarRegistroS)
-                                .addGap(0, 96, Short.MAX_VALUE))
-                            .addComponent(tfDireccionRegistroS)))
-                    .addGroup(panelAgregarSedeLayout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 87, Short.MAX_VALUE))
+                            .addComponent(tfDireccionRegistroS))))
                 .addContainerGap())
         );
         panelAgregarSedeLayout.setVerticalGroup(
@@ -709,7 +722,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(tfDireccionRegistroS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addGroup(panelAgregarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardarRegistroS)
                     .addComponent(botonCancelarRegistroS))
@@ -754,7 +767,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelAgregarPiezaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAgregarPiezaLayout.createSequentialGroup()
-                        .addGap(0, 94, Short.MAX_VALUE)
+                        .addGap(0, 85, Short.MAX_VALUE)
                         .addComponent(botonGuardarRegistroPieza)
                         .addGap(32, 32, 32)
                         .addComponent(botonCancelarRegistroPieza)
@@ -839,27 +852,6 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(56, 56, 56)
-                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfColorRegistrarAuto))
-                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfNombreRegistrarAuto))))
-                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                         .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
                                 .addContainerGap()
@@ -868,15 +860,35 @@ public class ventanaGerente extends javax.swing.JFrame {
                                 .addGap(105, 105, 105)
                                 .addComponent(botonGuardarRegistroAuto)
                                 .addGap(37, 37, 37)
-                                .addComponent(botonCancelarRegistroAuto)))
-                        .addGap(0, 98, Short.MAX_VALUE)))
+                                .addComponent(botonCancelarRegistroAuto))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfMarcaRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel27))
+                            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfColorRegistrarAuto)
+                            .addComponent(tfNombreRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addGroup(panelAgregarVehiculoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAgregarVehiculoLayout.setVerticalGroup(
             panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -895,7 +907,7 @@ public class ventanaGerente extends javax.swing.JFrame {
                     .addComponent(tfModeloRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)
                     .addComponent(tfColorRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(panelAgregarVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
                     .addComponent(tfPrecioRegistrarAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1119,6 +1131,105 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGap(13, 13, 13))
         );
 
+        panelModificarSede.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelModificarSede.setPreferredSize(new java.awt.Dimension(486, 447));
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel34.setText("Ingrese el codigo de la sede a modicar:");
+
+        labelCheckIdModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/green-check-icon-50852.png"))); // NOI18N
+
+        botonComprobarModfSede.setText("Comprobar");
+        botonComprobarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonComprobarModfSedeActionPerformed(evt);
+            }
+        });
+
+        labelSedeModfNoRegistrada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelSedeModfNoRegistrada.setForeground(new java.awt.Color(255, 0, 0));
+        labelSedeModfNoRegistrada.setText("Sede no registrada");
+
+        botonGuardarModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save.png"))); // NOI18N
+        botonGuardarModfSede.setText("Guardar");
+        botonGuardarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuardarModfSedeActionPerformed(evt);
+            }
+        });
+
+        botonCancelarModfSede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancel.png"))); // NOI18N
+        botonCancelarModfSede.setText("Cancelar");
+        botonCancelarModfSede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarModfSedeActionPerformed(evt);
+            }
+        });
+
+        labelNombreModfSede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelNombreModfSede.setText("Nombre");
+
+        labelDirModfSede.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelDirModfSede.setText("Dirección");
+
+        javax.swing.GroupLayout panelModificarSedeLayout = new javax.swing.GroupLayout(panelModificarSede);
+        panelModificarSede.setLayout(panelModificarSedeLayout);
+        panelModificarSedeLayout.setHorizontalGroup(
+            panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDirModfSede)
+                            .addComponent(labelNombreModfSede))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDirModfSede, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(tfNombreModfSede)))
+                    .addComponent(jLabel34)
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(botonGuardarModfSede)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonCancelarModfSede))
+                    .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                        .addComponent(tfCodigoModifSede, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonComprobarModfSede)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelCheckIdModfSede)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelSedeModfNoRegistrada)))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        panelModificarSedeLayout.setVerticalGroup(
+            panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelModificarSedeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel34)
+                .addGap(23, 23, 23)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelSedeModfNoRegistrada, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfCodigoModifSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonComprobarModfSede))
+                    .addComponent(labelCheckIdModfSede))
+                .addGap(81, 81, 81)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNombreModfSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelNombreModfSede))
+                .addGap(18, 18, 18)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDirModfSede)
+                    .addComponent(tfDirModfSede, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                .addGroup(panelModificarSedeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuardarModfSede)
+                    .addComponent(botonCancelarModfSede))
+                .addContainerGap())
+        );
+
         panelVisualizarUsuario.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelVisualizarUsuario.setPreferredSize(new java.awt.Dimension(483, 447));
 
@@ -1302,6 +1413,7 @@ public class ventanaGerente extends javax.swing.JFrame {
         jLayeredPane1.setLayer(panelAgregarPieza, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelAgregarVehiculo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelModificarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(panelModificarSede, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(panelVisualizarUsuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
@@ -1310,8 +1422,8 @@ public class ventanaGerente extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addComponent(panelAgregarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1320,23 +1432,28 @@ public class ventanaGerente extends javax.swing.JFrame {
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAgregarPieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(73, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(66, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(66, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelModificarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(66, Short.MAX_VALUE)))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap(41, Short.MAX_VALUE)
                     .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(42, Short.MAX_VALUE)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelModificarSede, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(74, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1363,6 +1480,10 @@ public class ventanaGerente extends javax.swing.JFrame {
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelVisualizarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(panelModificarSede, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -2233,6 +2354,81 @@ public class ventanaGerente extends javax.swing.JFrame {
     private void comboNombreSedeModfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboNombreSedeModfUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboNombreSedeModfUsuarioActionPerformed
+
+    private void botonModSedeGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModSedeGerenteActionPerformed
+        // TODO add your handling code here:
+        setPanelesInvisible(6);
+        tfCodigoModifSede.setEditable(true);
+        labelCheckIdModfSede.setVisible(false);
+        labelSedeModfNoRegistrada.setVisible(false);
+        labelDirModfSede.setVisible(false);
+        labelNombreModfSede.setVisible(false);
+        tfNombreModfSede.setVisible(false);
+        tfDirModfSede.setVisible(false);
+        botonGuardarModfSede.setVisible(false);
+        botonCancelarModfSede.setVisible(false);
+        tfNombreModfSede.setText("");
+        tfDirModfSede.setText("");
+        tfCodigoModifSede.setText("");
+    }//GEN-LAST:event_botonModSedeGerenteActionPerformed
+
+    private void botonComprobarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonComprobarModfSedeActionPerformed
+        // TODO add your handling code here:
+        //Verifica si la Sede si Existe
+        String codigoSede = tfCodigoModifSede.getText();
+        int validar = baseDatos.verificarCodigoSede(codigoSede);
+        if(validar == 1){
+            labelCheckIdModfSede.setVisible(true);
+            labelSedeModfNoRegistrada.setVisible(false);
+            Sede newSede = baseDatos.retornarSede(codigoSede);
+            tfDirModfSede.setText(newSede.getDireccion());
+            tfNombreModfSede.setText(newSede.getNombre());
+            tfCodigoModifSede.setEditable(false);
+            labelDirModfSede.setVisible(true);
+            labelNombreModfSede.setVisible(true);
+            tfNombreModfSede.setVisible(true);
+            tfDirModfSede.setVisible(true);
+            botonGuardarModfSede.setVisible(true);
+            botonCancelarModfSede.setVisible(true);
+        }else{
+            labelSedeModfNoRegistrada.setVisible(true);
+            labelCheckIdModfSede.setVisible(false);
+        }
+    }//GEN-LAST:event_botonComprobarModfSedeActionPerformed
+
+    private void botonGuardarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarModfSedeActionPerformed
+        // TODO add your handling code here:
+        if(tfNombreModfSede.getText().equals("") || tfDirModfSede.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Adventencia", JOptionPane.WARNING_MESSAGE); 
+        }else{
+            Sede sede = new Sede();
+            sede.setDireccion(tfDirModfSede.getText());
+            sede.setNombre(tfNombreModfSede.getText());
+            sede.setIdSede(Integer.parseInt(tfCodigoModifSede.getText()));
+            int validar = baseDatos.guardarModfSede(sede);
+            if(validar != -1){
+                JOptionPane.showMessageDialog(null, "La sede ha sido modificado con éxito","Éxito", JOptionPane.PLAIN_MESSAGE);
+                panelModificarSede.setVisible(false);
+                tfNombreModfSede.setText("");
+                tfDirModfSede.setText("");
+                tfCodigoModifSede.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al guardar los datos", "Adventencia", JOptionPane.WARNING_MESSAGE); 
+                
+            }
+        }
+    }//GEN-LAST:event_botonGuardarModfSedeActionPerformed
+
+    private void botonCancelarModfSedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarModfSedeActionPerformed
+        // TODO add your handling code here:
+        int confirmar = JOptionPane.showConfirmDialog(this, "¿Desea cancelar la operacion",  "Moficar Sede", JOptionPane.YES_NO_OPTION);
+        if(confirmar != 1){
+            panelModificarSede.setVisible(false);
+            tfNombreModfSede.setText("");
+            tfDirModfSede.setText("");
+            tfCodigoModifSede.setText("");
+        }
+    }//GEN-LAST:event_botonCancelarModfSedeActionPerformed
     
     private void setPanelesInvisible(int indicePanel){
         for(int i = 0;i < paneles.size();i++){
@@ -2284,13 +2480,16 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JButton botonAñadirPiezasGerente;
     private javax.swing.JButton botonAñadirVehGerente;
     private javax.swing.JButton botonBuscarUsuarioVisualUsuario;
+    private javax.swing.JButton botonCancelarModfSede;
     private javax.swing.JButton botonCancelarModfUsuario;
     private javax.swing.JButton botonCancelarRegistroAuto;
     private javax.swing.JButton botonCancelarRegistroGerente;
     private javax.swing.JButton botonCancelarRegistroPieza;
     private javax.swing.JButton botonCancelarRegistroS;
     private javax.swing.JButton botonComprobarIdModifUsuario;
+    private javax.swing.JButton botonComprobarModfSede;
     private javax.swing.JButton botonGenerarReporteGerente;
+    private javax.swing.JButton botonGuardarModfSede;
     private javax.swing.JButton botonGuardarModfUsuario;
     private javax.swing.JButton botonGuardarRegistroAuto;
     private javax.swing.JButton botonGuardarRegistroGerente;
@@ -2343,6 +2542,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2355,8 +2555,10 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar2;
     public javax.swing.JLabel labelCargoGerente;
     private javax.swing.JLabel labelCargoV;
+    private javax.swing.JLabel labelCheckIdModfSede;
     private javax.swing.JLabel labelCheckIdModificarUser;
     private javax.swing.JLabel labelContraModfUsuario;
+    private javax.swing.JLabel labelDirModfSede;
     private javax.swing.JLabel labelDireccionModfUsuario;
     private javax.swing.JLabel labelDireccionV;
     private javax.swing.JLabel labelEdadModfUsuario;
@@ -2370,9 +2572,11 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JLabel labelImagenGerente;
     private javax.swing.JLabel labelInfoRegistroUsuarioGerente;
     public javax.swing.JLabel labelNombreGerente;
+    private javax.swing.JLabel labelNombreModfSede;
     private javax.swing.JLabel labelNombreModfUsuario;
     private javax.swing.JLabel labelNombreV;
     private javax.swing.JLabel labelNombreV1;
+    private javax.swing.JLabel labelSedeModfNoRegistrada;
     private javax.swing.JLabel labelSedeModfUsuario;
     private javax.swing.JLabel labelSedeV;
     private javax.swing.JLabel labelTelefonoModfUsuario;
@@ -2389,13 +2593,16 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JPanel panelGenerarGerente;
     private javax.swing.JPanel panelInferiorGerente;
     private javax.swing.JPanel panelModificarGerente;
+    private javax.swing.JPanel panelModificarSede;
     private javax.swing.JPanel panelModificarUsuario;
     private javax.swing.JPanel panelRegistrarGerente;
     private javax.swing.JPanel panelSuperiorGerente;
     private javax.swing.JPanel panelVisualizarGerente;
     private javax.swing.JPanel panelVisualizarUsuario;
+    private javax.swing.JTextField tfCodigoModifSede;
     private javax.swing.JTextField tfColorRegistrarAuto;
     private javax.swing.JTextField tfContraModfUsuario;
+    private javax.swing.JTextField tfDirModfSede;
     private javax.swing.JTextField tfDirecRegistroU;
     private javax.swing.JTextField tfDireccionModfUsuario;
     private javax.swing.JTextField tfDireccionRegistroS;
@@ -2407,6 +2614,7 @@ public class ventanaGerente extends javax.swing.JFrame {
     private javax.swing.JTextField tfIdentificacionUserModificar;
     private javax.swing.JTextField tfMarcaRegistrarAuto;
     private javax.swing.JTextField tfModeloRegistrarAuto;
+    private javax.swing.JTextField tfNombreModfSede;
     private javax.swing.JTextField tfNombreModfUsuario;
     private javax.swing.JTextField tfNombreRegistrarAuto;
     private javax.swing.JTextField tfNombreRegistroPieza;

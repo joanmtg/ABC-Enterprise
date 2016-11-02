@@ -27,7 +27,7 @@ public class ManejadoraBD {
                     +           " '" + newEmpleado.getDireccion()+"','" + newEmpleado.getTipo() + "',"
                     +           newEmpleado.getCodigoSede() + ")";
         try{
-            Connection conexion= newConnection.conectar();
+            Connection conexion = newConnection.conectar();
             Statement sentencia = conexion.createStatement();
             int numFilas = sentencia.executeUpdate(sql_guardar);
             conexion.close();
@@ -389,8 +389,75 @@ public class ManejadoraBD {
         
         return codigo;
     }
+    
+    public int verificarCodigoSede(String codSede){
+        String sql = "SELECT COUNT (cod_sede) FROM Sedes WHERE cod_sede ="+codSede;
+        int respuesta = 0;
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql);
+            
+            while(tabla.next()){
+                respuesta = Integer.parseInt(tabla.getString(1));
+            }
+            conexion.close();
+            System.out.println("Conexion cerrada");
+            System.out.println(respuesta);
+            return respuesta;   
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+         return respuesta;
+    }
+    
+    public Sede retornarSede(String codSede){    
+        String sql_select = "SELECT * FROM Sedes WHERE cod_sede = "+codSede+";";
+                int codigo = 0;
+                String nombre = "";
+                String direccion = "";
+                Sede sede = new Sede();
+        try{
+            Connection conexion= newConnection.conectar();
+            Statement sentencia = conexion.createStatement();
+            ResultSet tabla = sentencia.executeQuery(sql_select);
+            
+            while(tabla.next()){
+                codigo = Integer.parseInt(tabla.getString(1));
+                nombre = tabla.getString(2);
+                direccion = tabla.getString(3);
+            }
+            conexion.close();
+            System.out.println("Conexion cerrada"); 
+            System.out.println(codigo + "\n");
+            System.out.println(nombre + "\n");
+            System.out.println(direccion + "\n");    
+            sede.setDireccion(direccion);
+            sede.setIdSede(codigo);
+            sede.setNombre(nombre);
+            return(sede);   
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+         return sede;   
+    }
         
-        
+public int guardarModfSede(Sede sede){
+    int id = sede.getIdSede();
+    String nombre = sede.getNombre();
+    String direccion = sede.getDireccion();
+    String sql = "UPDATE Sedes SET nombre_sede = '"+ nombre + "', direccion_sede ='"+ direccion 
+            + "' WHERE cod_sede = "+ id +";";
+    try{
+        Connection conexion = newConnection.conectar();
+        Statement sentencia = conexion.createStatement();
+        int numFilas = sentencia.executeUpdate(sql);
+        return numFilas;
+    }
+    catch(SQLException e){ System.out.println(e); }
+    catch(Exception e){ System.out.println(e); }
+    return -1;
+}
         
         
 }
